@@ -15,19 +15,21 @@ export async function PATCH(
     }
 
     const body = await request.json();
-    const { status } = body;
 
-    if (!status) {
-      return new NextResponse('Status is required', { status: 400 });
+    const updateData: any = {};
+    if (body.status !== undefined) updateData.status = body.status;
+    if (body.technicianId !== undefined) updateData.technicianId = body.technicianId === '' ? null : body.technicianId;
+    if (body.supervisorId !== undefined) updateData.supervisorId = body.supervisorId === '' ? null : body.supervisorId;
+
+    if (Object.keys(updateData).length === 0) {
+      return new NextResponse('Nothing to update', { status: 400 });
     }
 
     const job = await prisma.job.update({
       where: {
         id: params.id,
       },
-      data: {
-        status,
-      },
+      data: updateData,
     });
 
     return NextResponse.json(job);

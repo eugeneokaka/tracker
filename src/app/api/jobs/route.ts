@@ -18,7 +18,7 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json();
-    const { customerName, customerPhone, item, problem, notes } = body;
+    const { customerName, customerPhone, item, problem, notes, technicianId, supervisorId } = body;
 
     const job = await prisma.job.create({
       data: {
@@ -29,7 +29,8 @@ export async function POST(req: Request) {
         notes,
         status: 'PENDING',
         creatorId: user.id,
-        // technicianId: user.id
+        technicianId: technicianId || null,
+        supervisorId: supervisorId || null,
       }
     });
 

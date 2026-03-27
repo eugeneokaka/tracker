@@ -34,6 +34,14 @@ export default function RootLayout({
                 <span className="font-bold text-lg tracking-tight">Workflow<span className="text-zinc-400">Hub</span></span>
               </Link>
               <div className="flex items-center space-x-4">
+                <div className="flex gap-6 relative">
+                  <Link href="/" className="text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors py-2 flex items-center">
+                    Dashboard
+                  </Link>
+                  <Link href="/team" className="text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors py-2 flex items-center">
+                    Team
+                  </Link>
+                </div>
                 <UserButton />
               </div>
             </div>
