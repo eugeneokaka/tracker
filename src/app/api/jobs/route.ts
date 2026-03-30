@@ -2,6 +2,71 @@ import { auth } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
+
+
+export async function GET(req: Request) {
+  try {
+    const { searchParams } = new URL(req.url);
+
+    const jobId = searchParams.get("jobId")?.trim();
+    const tenderNo = searchParams.get("tenderNo")?.trim();
+    const firm = searchParams.get("firm")?.trim();
+
+    let whereClause: any = undefined;
+
+    if (jobId || tenderNo || firm) {
+      const filters = [];
+
+      if (jobId) {
+        filters.push({ id: jobId });
+      }
+
+      if (tenderNo) {
+        filters.push({
+          tenderNo: {
+            contains: tenderNo,
+            mode: "insensitive",
+          },
+        });
+      }
+
+      if (firm) {
+        filters.push({
+          firm: {
+            contains: firm,
+            mode: "insensitive",
+          },
+        });
+      }
+
+      whereClause = { OR: filters };
+    }
+
+    const jobs = await prisma.job.findMany({
+      where: whereClause,
+      orderBy: { createdAt: "desc" },
+      include: {
+        creator: true,
+        technician: true,
+        supervisor: true,
+      },
+    });
+
+    const formattedJobs = jobs.map((job) => ({
+      ...job,
+      contract: Number(job.contract),
+    }));
+
+    return NextResponse.json(formattedJobs);
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { error: "Failed to fetch jobs" },
+      { status: 500 }
+    );
+  }
+}
+
 export async function POST(req: Request) {
   try {
     const { userId } = await auth();

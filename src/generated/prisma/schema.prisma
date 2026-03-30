@@ -75,7 +75,7 @@ model Job {
   id          String    @id @default(cuid())
   tenderNo    String    @unique
   firm        String
-  contract    Decimal   @db.Decimal(10, 2)
+  contract    Decimal   @db.Decimal(15, 2)
   description String
   status      JobStatus @default(PENDING)
   createdAt   DateTime  @default(now())
