@@ -7,10 +7,10 @@ import { useRouter } from 'next/navigation';
 type UserInfo = { id?: string, firstName: string, lastName: string };
 type Job = {
   id: string;
-  customerName: string | null;
-  customerPhone: string | null;
-  item: string | null;
-  problem: string | null;
+  tenderNo: string;
+  firm: string;
+  contract: number;
+  description: string;
   notes: string | null;
   status: string;
   createdAt: Date;
@@ -180,9 +180,11 @@ export default function JobList({
           <table className="min-w-full text-left text-sm text-zinc-600">
             <thead className="bg-zinc-50 border-b border-zinc-200 text-zinc-900">
               <tr>
-                <th className="px-5 py-4 font-medium">Job ID</th>
-                <th className="px-5 py-4 font-medium">Customer</th>
-                <th className="px-5 py-4 font-medium">Task / Problem</th>
+                <th className="px-5 py-4 font-medium min-w-[120px]">Job ID</th>
+                <th className="px-5 py-4 font-medium min-w-[120px]">Tender No</th>
+                <th className="px-5 py-4 font-medium">Firm</th>
+                <th className="px-5 py-4 font-medium">Contract</th>
+                <th className="px-5 py-4 font-medium min-w-[200px]">Description</th>
                 <th className="px-5 py-4 font-medium min-w-[200px]">Notes</th>
                 <th className="px-5 py-4 font-medium min-w-[200px]">Assignments</th>
                 <th className="px-5 py-4 font-medium">Status / Date</th>
@@ -191,7 +193,7 @@ export default function JobList({
             <tbody className="divide-y divide-zinc-200">
               {filteredJobs.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-6 py-12 text-center text-zinc-500">
+                  <td colSpan={8} className="px-6 py-12 text-center text-zinc-500">
                     No jobs found matching this status.
                   </td>
                 </tr>
@@ -220,14 +222,16 @@ export default function JobList({
                         </div>
                       </td>
                       <td className="px-5 py-4">
-                        <div className="font-medium text-zinc-900">{job.customerName || '—'}</div>
-                        <div className="text-xs text-zinc-500 mt-1">{job.customerPhone || '—'}</div>
+                        <div className="font-medium text-zinc-900">{job.tenderNo || '—'}</div>
+                      </td>
+                      <td className="px-5 py-4">
+                        <div className="font-medium text-zinc-900">{job.firm}</div>
+                      </td>
+                      <td className="px-5 py-4">
+                        <div className="text-sm font-medium text-zinc-800">${job.contract?.toLocaleString() || '0'}</div>
                       </td>
                       <td className="px-5 py-4 max-w-xs">
-                        <div className="font-medium text-zinc-800 mb-1">{job.item || '—'}</div>
-                        <div className="text-xs text-zinc-500 line-clamp-3" title={job.problem || ''}>
-                          {job.problem || '—'}
-                        </div>
+                        <div className="font-medium text-zinc-800 mb-1 line-clamp-2" title={job.description || ''}>{job.description || '—'}</div>
                       </td>
                       <td className="px-5 py-4 max-w-sm">
                         <p className="text-xs italic text-zinc-500 line-clamp-4 leading-relaxed" title={job.notes || ''}>

@@ -44,31 +44,57 @@ model User {
   createdJobs     Job[] @relation("JobCreator")
 }
 
+// model Job {
+//   id             String      @id @default(cuid())
+//   customerName   String?
+//   customerPhone  String?
+//   item           String?
+//   problem        String?
+//   status         JobStatus   @default(PENDING)
+//   createdAt      DateTime    @default(now())
+//   updatedAt      DateTime    @updatedAt
+
+//   // Technician (contractor doing the job)
+//   technician     User? @relation("AssignedTechnician", fields: [technicianId], references: [id])
+//   technicianId   String?
+
+//   // Supervisor
+//   supervisor     User? @relation("Supervisor", fields: [supervisorId], references: [id])
+//   supervisorId   String?
+
+//   creator        User?   @relation("JobCreator", fields: [creatorId], references: [id])
+//   creatorId      String?
+
+//   // Logs
+
+//   logs           ProgressLog[]
+//   notes          String?
+// }
 model Job {
-  id             String      @id @default(cuid())
-  customerName   String?
-  customerPhone  String?
-  item           String?
-  problem        String?
-  status         JobStatus   @default(PENDING)
-  createdAt      DateTime    @default(now())
-  updatedAt      DateTime    @updatedAt
+  id           String      @id @default(cuid())
+  tenderNo     String      @unique
+  firm         String
+  contract     Decimal     @db.Decimal(10, 2)
+  description  String
+  status       JobStatus   @default(PENDING)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
 
-  // Technician (contractor doing the job)
-  technician     User? @relation("AssignedTechnician", fields: [technicianId], references: [id])
-  technicianId   String?
+  technician   User? @relation("AssignedTechnician", fields: [technicianId], references: [id])
+  technicianId String?
 
-  // Supervisor
-  supervisor     User? @relation("Supervisor", fields: [supervisorId], references: [id])
-  supervisorId   String?
+  supervisor   User? @relation("Supervisor", fields: [supervisorId], references: [id])
+  supervisorId String?
 
-  creator        User?   @relation("JobCreator", fields: [creatorId], references: [id])
-  creatorId      String?
+  creator      User? @relation("JobCreator", fields: [creatorId], references: [id])
+  creatorId    String?
 
-  // Logs
+  logs         ProgressLog[]
+  notes        String?
 
-  logs           ProgressLog[]
-  notes          String?
+  @@index([status])
+  @@index([technicianId])
+  @@index([supervisorId])
 }
 model ProgressLog {
   id        String   @id @default(cuid())

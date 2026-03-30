@@ -7,10 +7,10 @@ import Link from 'next/link';
 type UserInfo = { id?: string, firstName: string, lastName: string };
 type Job = {
   id: string;
-  customerName: string | null;
-  customerPhone: string | null;
-  item: string | null;
-  problem: string | null;
+  tenderNo: string;
+  firm: string;
+  contract: number;
+  description: string;
   notes: string | null;
   status: string;
   createdAt: string | Date;
@@ -48,12 +48,9 @@ export default function JobDetailClient({
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error('Failed to update field');
-      const updatedJob = await res.json();
       
-      // Opt-in UI refresh
       router.refresh();
       
-      // Update local state to reflect changes instantly while DB refreshes in bg
       setJob(prev => ({
         ...prev,
         ...payload,
@@ -69,7 +66,7 @@ export default function JobDetailClient({
     }
   };
 
-  const renderSection = (title: string, content: string | null | undefined) => (
+  const renderSection = (title: string, content: string | number | null | undefined) => (
     <div className="border-b border-zinc-100 py-4 last:border-0 hover:bg-zinc-50/50 transition-colors px-6">
       <h3 className="text-[11px] uppercase tracking-wider font-semibold text-zinc-500 mb-1">{title}</h3>
       <p className="text-zinc-900 text-sm leading-relaxed">{content || '—'}</p>
@@ -83,11 +80,10 @@ export default function JobDetailClient({
       </Link>
 
       <div className="flex flex-col md:flex-row gap-6">
-        {/* Left Column: Job Details */}
         <div className="flex-1 bg-white border border-zinc-200 rounded-xl shadow-sm overflow-hidden">
           <div className="px-6 py-5 border-b border-zinc-200 bg-zinc-50 flex items-center justify-between">
             <div>
-              <h1 className="text-lg font-semibold text-zinc-900">Job Reference #{job.id.slice(0, 8)}</h1>
+              <h1 className="text-lg font-semibold text-zinc-900">Tender #{job.tenderNo || job.id.slice(0, 8)}</h1>
               <p className="text-zinc-500 text-xs mt-1">
                 Created on {new Date(job.createdAt).toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' })}
               </p>
@@ -98,15 +94,13 @@ export default function JobDetailClient({
           </div>
           
           <div className="flex flex-col">
-            {renderSection("Customer Name", job.customerName)}
-            {renderSection("Phone Number", job.customerPhone)}
-            {renderSection("Item / Equipment", job.item)}
-            {renderSection("Problem Description", job.problem)}
+            {renderSection("Firm Name", job.firm)}
+            {renderSection("Contract Value", job.contract > 0 ? `$${job.contract.toLocaleString()}` : job.contract)}
+            {renderSection("Description", job.description)}
             {renderSection("Internal Notes", job.notes)}
           </div>
         </div>
 
-        {/* Right Column: Assignments */}
         <div className="w-full md:w-80 flex flex-col gap-6">
           <div className="bg-white border border-zinc-200 rounded-xl shadow-sm overflow-hidden">
             <div className="px-5 py-4 border-b border-zinc-200 bg-zinc-50">
@@ -114,7 +108,6 @@ export default function JobDetailClient({
             </div>
             <div className="p-5 space-y-6">
               
-              {/* Creator (Readonly) */}
               <div>
                 <h3 className="text-[10px] uppercase tracking-wider font-bold text-zinc-400 mb-2">Creator</h3>
                 <div className="flex items-center gap-3">
@@ -127,7 +120,6 @@ export default function JobDetailClient({
                 </div>
               </div>
 
-              {/* Supervisor Assignment */}
               <div className="pt-4 border-t border-zinc-100">
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="text-[10px] uppercase tracking-wider font-bold text-zinc-400">Assigned Supervisor</h3>
@@ -169,7 +161,6 @@ export default function JobDetailClient({
                 )}
               </div>
 
-              {/* Technician Assignment */}
               <div className="pt-4 border-t border-zinc-100">
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="text-[10px] uppercase tracking-wider font-bold text-zinc-400">Assigned Technician</h3>

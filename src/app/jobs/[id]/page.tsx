@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import JobDetailClient from "@/app/jobs/[id]/JobDetailClient";
+import JobDetailClient from "./JobDetailClient";
 
 export const dynamic = 'force-dynamic';
 
@@ -48,10 +48,15 @@ export default async function JobDetailPage(props: { params: Promise<{ id: strin
 
   const canEdit = job.creatorId === currentUser?.id || currentUser?.role === 'ADMIN';
 
+  const serializedJob = {
+    ...job,
+    contract: Number(job.contract)
+  };
+
   return (
     <div className="w-full max-w-4xl mx-auto pt-8 px-4">
       <JobDetailClient 
-        initialJob={job as any} 
+        initialJob={serializedJob as any} 
         canEdit={canEdit}
         technicians={technicians}
         supervisors={supervisors}

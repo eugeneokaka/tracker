@@ -27,10 +27,10 @@ export default function CreateJobForm({
 
     const formData = new FormData(e.currentTarget);
     const data = {
-      customerName: formData.get('customerName'),
-      customerPhone: formData.get('customerPhone'),
-      item: formData.get('item'),
-      problem: formData.get('problem'),
+      tenderNo: formData.get('tenderNo'),
+      firm: formData.get('firm'),
+      contract: parseFloat(formData.get('contract') as string) || 0,
+      description: formData.get('description'),
       notes: formData.get('notes'),
       technicianId: formData.get('technicianId') || null,
       supervisorId: formData.get('supervisorId') || null,
@@ -48,7 +48,7 @@ export default function CreateJobForm({
       }
 
       router.push('/');
-      router.refresh(); // Force refresh to show the new job on dashboard
+      router.refresh();
     } catch (err) {
       console.error(err);
       setError('An error occurred while creating the job. Please try again.');
@@ -66,57 +66,60 @@ export default function CreateJobForm({
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
-          <label htmlFor="customerName" className="block text-sm font-medium text-zinc-700">
-            Customer Name <span className="text-zinc-400 font-normal">(Optional)</span>
+          <label htmlFor="tenderNo" className="block text-sm font-medium text-zinc-700">
+            Tender No
           </label>
           <input
             type="text"
-            id="customerName"
-            name="customerName"
+            id="tenderNo"
+            name="tenderNo"
+            required
             className="w-full px-3 py-2 border border-zinc-300 rounded-md bg-white text-zinc-900 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent transition-shadow"
-            placeholder="e.g. Acme Corp"
+            placeholder="e.g. TND-2026-001"
           />
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="customerPhone" className="block text-sm font-medium text-zinc-700">
-            Customer Phone <span className="text-zinc-400 font-normal">(Optional)</span>
+          <label htmlFor="firm" className="block text-sm font-medium text-zinc-700">
+            Firm
           </label>
           <input
             type="text"
-            id="customerPhone"
-            name="customerPhone"
+            id="firm"
+            name="firm"
+            required
             className="w-full px-3 py-2 border border-zinc-300 rounded-md bg-white text-zinc-900 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent transition-shadow"
-            placeholder="e.g. +1 555-0100"
+            placeholder="e.g. Acme Builders Ltd"
           />
         </div>
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="item" className="block text-sm font-medium text-zinc-700">
-          Item / Equipment
+        <label htmlFor="contract" className="block text-sm font-medium text-zinc-700">
+          Contract Value
         </label>
         <input
-          type="text"
-          id="item"
-          name="item"
+          type="number"
+          step="0.01"
+          id="contract"
+          name="contract"
           required
           className="w-full px-3 py-2 border border-zinc-300 rounded-md bg-white text-zinc-900 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent transition-shadow"
-          placeholder="e.g. Dell XPS 15 Laptop"
+          placeholder="e.g. 50000"
         />
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="problem" className="block text-sm font-medium text-zinc-700">
-          Problem Description
+        <label htmlFor="description" className="block text-sm font-medium text-zinc-700">
+          Description
         </label>
         <textarea
-          id="problem"
-          name="problem"
+          id="description"
+          name="description"
           required
-          rows={3}
+          rows={4}
           className="w-full px-3 py-2 border border-zinc-300 rounded-md bg-white text-zinc-900 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent transition-shadow resize-y"
-          placeholder="Describe the issue that needs addressing..."
+          placeholder="Describe the job requirements..."
         />
       </div>
 
@@ -165,7 +168,7 @@ export default function CreateJobForm({
           name="notes"
           rows={2}
           className="w-full px-3 py-2 border border-zinc-300 rounded-md bg-white text-zinc-900 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent transition-shadow resize-y"
-          placeholder="Any additional information for the team..."
+          placeholder="Any additional internal information..."
         />
       </div>
 

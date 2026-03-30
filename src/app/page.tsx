@@ -36,10 +36,16 @@ export default async function Home() {
     orderBy: { firstName: 'asc' }
   });
 
+  // Convert Decimals to numbers for client component to prevent rendering issues
+  const initialJobs = jobs.map((job) => ({
+    ...job,
+    contract: Number(job.contract)
+  }));
+
   return (
     <div className="w-full h-full flex flex-col">
       <JobList 
-        initialJobs={jobs} 
+        initialJobs={initialJobs as any} 
         currentUserId={currentUser?.id || ''}
         technicians={technicians}
         supervisors={supervisors}

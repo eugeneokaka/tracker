@@ -14,18 +14,18 @@ export async function POST(req: Request) {
     });
 
     if (!user) {
-      return new NextResponse('User not found in database', { status: 404 });
+      return new NextResponse('User not found in database. Please log in again.', { status: 404 });
     }
 
     const body = await req.json();
-    const { customerName, customerPhone, item, problem, notes, technicianId, supervisorId } = body;
+    const { tenderNo, firm, contract, description, notes, technicianId, supervisorId } = body;
 
     const job = await prisma.job.create({
       data: {
-        customerName,
-        customerPhone,
-        item,
-        problem,
+        tenderNo,
+        firm,
+        contract,
+        description,
         notes,
         status: 'PENDING',
         creatorId: user.id,
