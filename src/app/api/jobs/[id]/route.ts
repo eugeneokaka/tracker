@@ -14,6 +14,40 @@ export async function PATCH(
       return new NextResponse('Unauthorized', { status: 401 });
     }
 
+    // Get the actual user ID from Clerk ID
+    const user = await prisma.user.findUnique({
+      where: { clerkId: userId },
+      select: { id: true },
+    });
+
+    if (!user) {
+      return new NextResponse('User not found', { status: 404 });
+    }
+
+    // Get current job to check if user is related to it
+    const currentJob = await prisma.job.findUnique({
+      where: { id: params.id },
+      select: {
+        creatorId: true,
+        technicianId: true,
+        supervisorId: true,
+      },
+    });
+
+    if (!currentJob) {
+      return new NextResponse('Job not found', { status: 404 });
+    }
+
+    // Check if user is related to the job (creator, supervisor, or technician)
+    const isRelated = 
+      currentJob.creatorId === user.id ||
+      currentJob.technicianId === user.id ||
+      currentJob.supervisorId === user.id;
+
+    if (!isRelated) {
+      return new NextResponse('Only job creator or assigned users can update this job', { status: 403 });
+    }
+
     const body = await request.json();
 
     const updateData: any = {};

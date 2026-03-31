@@ -45,6 +45,7 @@ export async function GET(req: Request) {
     const jobs = await prisma.job.findMany({
       where: whereClause,
       orderBy: { createdAt: "desc" },
+      take: 10, // Limit to maximum 10 jobs
       include: {
         creator: true,
         technician: true,

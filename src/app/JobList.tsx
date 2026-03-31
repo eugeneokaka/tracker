@@ -97,10 +97,41 @@ export default function JobList({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      if (!res.ok) throw new Error("Failed");
+      if (!res.ok) {
+        if (res.status === 403) {
+          alert('You are not authorized to update this job. Only the job creator or assigned users can make changes.');
+          return;
+        }
+        throw new Error("Failed");
+      }
       fetchJobs();
     } catch (err) {
       console.error(err);
+    }
+  };
+
+  const [updatingStatus, setUpdatingStatus] = useState<string | null>(null);
+
+  const updateStatus = async (jobId: string, status: string) => {
+    setUpdatingStatus(jobId);
+    try {
+      const res = await fetch(`/api/jobs/${jobId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status }),
+      });
+      if (!res.ok) {
+        if (res.status === 403) {
+          alert('You are not authorized to update this job. Only the job creator or assigned users can make changes.');
+          return;
+        }
+        throw new Error("Failed");
+      }
+      fetchJobs();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setUpdatingStatus(null);
     }
   };
 
@@ -309,27 +340,49 @@ export default function JobList({
 
                   {/* STATUS */}
                   <td className="px-6 py-4">
-                    <select
-                      value={job.status}
-                      onChange={(e) =>
-                        updateField(job.id, { status: e.target.value })
-                      }
-                      className={`text-xs px-3 py-1.5 rounded-full font-medium outline-none ${getStatusStyle(
-                        job.status
-                      )}`}
-                    >
-                      <option value="PENDING">PENDING</option>
-                      <option value="IN_PROGRESS">IN_PROGRESS</option>
-                      <option value="WAITING_PARTS">WAITING_PARTS</option>
-                      <option value="COMPLETED">COMPLETED</option>
-                    </select>
+                    <div className="flex items-center gap-2">
+                      <select
+                        value={job.status}
+                        onChange={(e) => updateStatus(job.id, e.target.value)}
+                        disabled={updatingStatus === job.id}
+                        className={`text-xs px-3 py-1.5 rounded-full font-medium outline-none ${getStatusStyle(
+                          job.status
+                        )} disabled:opacity-50 disabled:cursor-not-allowed`}
+                      >
+                        <option value="PENDING">PENDING</option>
+                        <option value="IN_PROGRESS">IN_PROGRESS</option>
+                        <option value="WAITING_PARTS">WAITING_PARTS</option>
+                        <option value="COMPLETED">COMPLETED</option>
+                      </select>
 
-                    <Link
-                      href={`/jobs/${job.id}`}
-                      className="block mt-3 text-xs text-black underline"
-                    >
-                      View →
-                    </Link>
+                      {updatingStatus === job.id && (
+                        <div className="flex items-center gap-2">
+                          <svg className="animate-spin h-4 w-4 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          <span className="text-xs text-gray-600">Updating...</span>
+                        </div>
+                      )}
+
+                      <div className="flex gap-1">
+                        <button
+                          onClick={() => window.print()}
+                          className="text-xs bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700 transition-colors"
+                          title="Download job"
+                        >
+                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3 3m3 0l3 3m-3-3H8m13 0H5m0 0l2.757 2.757m-2.757-2.757H15" />
+                          </svg>
+                        </button>
+                        <Link
+                          href={`/jobs/${job.id}`}
+                          className="text-xs text-black underline"
+                        >
+                          View →
+                        </Link>
+                      </div>
+                    </div>
                   </td>
                 </tr>
               ))
