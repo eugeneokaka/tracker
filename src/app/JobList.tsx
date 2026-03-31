@@ -122,7 +122,11 @@ export default function JobList({
       });
       if (!res.ok) {
         if (res.status === 403) {
-          alert('You are not authorized to update this job. Only the job creator or assigned users can make changes.');
+          alert('You are not authorized to update this job. Only job creator, assigned users, or admins can make changes.');
+          return;
+        }
+        if (res.status === 404) {
+          alert('Please complete onboarding before updating jobs.');
           return;
         }
         throw new Error("Failed");

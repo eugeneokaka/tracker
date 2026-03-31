@@ -16,6 +16,20 @@ export async function PATCH(
       return new NextResponse('Unauthorized', { status: 401 });
     }
 
+    // Get current user and check if they are admin
+    const currentUser = await prisma.user.findUnique({
+      where: { clerkId: userId },
+      select: { role: true }
+    });
+
+    if (!currentUser) {
+      return new NextResponse('User not found', { status: 404 });
+    }
+
+    if (currentUser.role !== 'ADMIN') {
+      return new NextResponse('Only admin can update roles', { status: 403 });
+    }
+
     const body = await request.json();
     const { role } = body;
 

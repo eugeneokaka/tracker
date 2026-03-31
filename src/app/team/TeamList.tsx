@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 type User = {
   id: string;
@@ -40,11 +41,17 @@ export default function TeamList({ initialUsers, currentUserRole }: { initialUse
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ role: newRole }),
       });
-      if (!res.ok) throw new Error('Failed to update role');
+      if (!res.ok) {
+        if (res.status === 403) {
+          toast.error('Only admin can update roles');
+          return;
+        }
+        throw new Error('Failed to update role');
+      }
       router.refresh(); 
     } catch (error) {
       console.error(error);
-      alert('Failed to update user role.');
+      toast.error('Failed to update user role.');
     } finally {
       setUpdatingId(null);
     }

@@ -17,11 +17,15 @@ export async function PATCH(
     // Get the actual user ID from Clerk ID
     const user = await prisma.user.findUnique({
       where: { clerkId: userId },
-      select: { id: true },
+      select: { id: true, onboardingCompleted: true, role: true },
     });
 
     if (!user) {
       return new NextResponse('User not found', { status: 404 });
+    }
+
+    if (!user.onboardingCompleted) {
+      return new NextResponse('Please complete onboarding before updating jobs.', { status: 403 });
     }
 
     // Get current job to check if user is related to it
@@ -38,14 +42,15 @@ export async function PATCH(
       return new NextResponse('Job not found', { status: 404 });
     }
 
-    // Check if user is related to the job (creator, supervisor, or technician)
+    // Check if user is related to the job (creator, supervisor, or technician) or is admin
     const isRelated = 
       currentJob.creatorId === user.id ||
       currentJob.technicianId === user.id ||
-      currentJob.supervisorId === user.id;
+      currentJob.supervisorId === user.id ||
+      user.role === 'ADMIN';
 
     if (!isRelated) {
-      return new NextResponse('Only job creator or assigned users can update this job', { status: 403 });
+      return new NextResponse('Only job creator, assigned users, or admins can update this job', { status: 403 });
     }
 
     const body = await request.json();
