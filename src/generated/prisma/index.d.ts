@@ -1076,17 +1076,17 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
-    logs: number
-    assignedJobs: number
-    supervisedJobs: number
     createdJobs: number
+    supervisedJobs: number
+    assignedJobs: number
+    logs: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    logs?: boolean | UserCountOutputTypeCountLogsArgs
-    assignedJobs?: boolean | UserCountOutputTypeCountAssignedJobsArgs
-    supervisedJobs?: boolean | UserCountOutputTypeCountSupervisedJobsArgs
     createdJobs?: boolean | UserCountOutputTypeCountCreatedJobsArgs
+    supervisedJobs?: boolean | UserCountOutputTypeCountSupervisedJobsArgs
+    assignedJobs?: boolean | UserCountOutputTypeCountAssignedJobsArgs
+    logs?: boolean | UserCountOutputTypeCountLogsArgs
   }
 
   // Custom InputTypes
@@ -1103,14 +1103,7 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ProgressLogWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountAssignedJobsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCountOutputTypeCountCreatedJobsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: JobWhereInput
   }
 
@@ -1124,8 +1117,15 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountCreatedJobsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCountOutputTypeCountAssignedJobsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: JobWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProgressLogWhereInput
   }
 
 
@@ -1182,6 +1182,7 @@ export namespace Prisma {
     email: string | null
     role: $Enums.Role | null
     createdAt: Date | null
+    onboardingCompleted: boolean | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1192,6 +1193,7 @@ export namespace Prisma {
     email: string | null
     role: $Enums.Role | null
     createdAt: Date | null
+    onboardingCompleted: boolean | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1202,6 +1204,7 @@ export namespace Prisma {
     email: number
     role: number
     createdAt: number
+    onboardingCompleted: number
     _all: number
   }
 
@@ -1214,6 +1217,7 @@ export namespace Prisma {
     email?: true
     role?: true
     createdAt?: true
+    onboardingCompleted?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1224,6 +1228,7 @@ export namespace Prisma {
     email?: true
     role?: true
     createdAt?: true
+    onboardingCompleted?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1234,6 +1239,7 @@ export namespace Prisma {
     email?: true
     role?: true
     createdAt?: true
+    onboardingCompleted?: true
     _all?: true
   }
 
@@ -1317,6 +1323,7 @@ export namespace Prisma {
     email: string
     role: $Enums.Role
     createdAt: Date
+    onboardingCompleted: boolean
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -1344,10 +1351,11 @@ export namespace Prisma {
     email?: boolean
     role?: boolean
     createdAt?: boolean
-    logs?: boolean | User$logsArgs<ExtArgs>
-    assignedJobs?: boolean | User$assignedJobsArgs<ExtArgs>
-    supervisedJobs?: boolean | User$supervisedJobsArgs<ExtArgs>
+    onboardingCompleted?: boolean
     createdJobs?: boolean | User$createdJobsArgs<ExtArgs>
+    supervisedJobs?: boolean | User$supervisedJobsArgs<ExtArgs>
+    assignedJobs?: boolean | User$assignedJobsArgs<ExtArgs>
+    logs?: boolean | User$logsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1359,6 +1367,7 @@ export namespace Prisma {
     email?: boolean
     role?: boolean
     createdAt?: boolean
+    onboardingCompleted?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1369,6 +1378,7 @@ export namespace Prisma {
     email?: boolean
     role?: boolean
     createdAt?: boolean
+    onboardingCompleted?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -1379,14 +1389,15 @@ export namespace Prisma {
     email?: boolean
     role?: boolean
     createdAt?: boolean
+    onboardingCompleted?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clerkId" | "firstName" | "lastName" | "email" | "role" | "createdAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clerkId" | "firstName" | "lastName" | "email" | "role" | "createdAt" | "onboardingCompleted", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    logs?: boolean | User$logsArgs<ExtArgs>
-    assignedJobs?: boolean | User$assignedJobsArgs<ExtArgs>
-    supervisedJobs?: boolean | User$supervisedJobsArgs<ExtArgs>
     createdJobs?: boolean | User$createdJobsArgs<ExtArgs>
+    supervisedJobs?: boolean | User$supervisedJobsArgs<ExtArgs>
+    assignedJobs?: boolean | User$assignedJobsArgs<ExtArgs>
+    logs?: boolean | User$logsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1395,10 +1406,10 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      logs: Prisma.$ProgressLogPayload<ExtArgs>[]
-      assignedJobs: Prisma.$JobPayload<ExtArgs>[]
-      supervisedJobs: Prisma.$JobPayload<ExtArgs>[]
       createdJobs: Prisma.$JobPayload<ExtArgs>[]
+      supervisedJobs: Prisma.$JobPayload<ExtArgs>[]
+      assignedJobs: Prisma.$JobPayload<ExtArgs>[]
+      logs: Prisma.$ProgressLogPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1408,6 +1419,7 @@ export namespace Prisma {
       email: string
       role: $Enums.Role
       createdAt: Date
+      onboardingCompleted: boolean
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -1802,10 +1814,10 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    logs<T extends User$logsArgs<ExtArgs> = {}>(args?: Subset<T, User$logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProgressLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    assignedJobs<T extends User$assignedJobsArgs<ExtArgs> = {}>(args?: Subset<T, User$assignedJobsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    supervisedJobs<T extends User$supervisedJobsArgs<ExtArgs> = {}>(args?: Subset<T, User$supervisedJobsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     createdJobs<T extends User$createdJobsArgs<ExtArgs> = {}>(args?: Subset<T, User$createdJobsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    supervisedJobs<T extends User$supervisedJobsArgs<ExtArgs> = {}>(args?: Subset<T, User$supervisedJobsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    assignedJobs<T extends User$assignedJobsArgs<ExtArgs> = {}>(args?: Subset<T, User$assignedJobsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    logs<T extends User$logsArgs<ExtArgs> = {}>(args?: Subset<T, User$logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProgressLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1842,6 +1854,7 @@ export namespace Prisma {
     readonly email: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'Role'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
+    readonly onboardingCompleted: FieldRef<"User", 'Boolean'>
   }
     
 
@@ -2230,33 +2243,9 @@ export namespace Prisma {
   }
 
   /**
-   * User.logs
+   * User.createdJobs
    */
-  export type User$logsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ProgressLog
-     */
-    select?: ProgressLogSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ProgressLog
-     */
-    omit?: ProgressLogOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProgressLogInclude<ExtArgs> | null
-    where?: ProgressLogWhereInput
-    orderBy?: ProgressLogOrderByWithRelationInput | ProgressLogOrderByWithRelationInput[]
-    cursor?: ProgressLogWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ProgressLogScalarFieldEnum | ProgressLogScalarFieldEnum[]
-  }
-
-  /**
-   * User.assignedJobs
-   */
-  export type User$assignedJobsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$createdJobsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Job
      */
@@ -2302,9 +2291,9 @@ export namespace Prisma {
   }
 
   /**
-   * User.createdJobs
+   * User.assignedJobs
    */
-  export type User$createdJobsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$assignedJobsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Job
      */
@@ -2323,6 +2312,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: JobScalarFieldEnum | JobScalarFieldEnum[]
+  }
+
+  /**
+   * User.logs
+   */
+  export type User$logsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProgressLog
+     */
+    select?: ProgressLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProgressLog
+     */
+    omit?: ProgressLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProgressLogInclude<ExtArgs> | null
+    where?: ProgressLogWhereInput
+    orderBy?: ProgressLogOrderByWithRelationInput | ProgressLogOrderByWithRelationInput[]
+    cursor?: ProgressLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProgressLogScalarFieldEnum | ProgressLogScalarFieldEnum[]
   }
 
   /**
@@ -2366,10 +2379,6 @@ export namespace Prisma {
 
   export type JobMinAggregateOutputType = {
     id: string | null
-    tenderNo: string | null
-    firm: string | null
-    contract: Decimal | null
-    description: string | null
     status: $Enums.JobStatus | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2377,14 +2386,14 @@ export namespace Prisma {
     supervisorId: string | null
     creatorId: string | null
     notes: string | null
+    contract: Decimal | null
+    description: string | null
+    firm: string | null
+    tenderNo: string | null
   }
 
   export type JobMaxAggregateOutputType = {
     id: string | null
-    tenderNo: string | null
-    firm: string | null
-    contract: Decimal | null
-    description: string | null
     status: $Enums.JobStatus | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2392,14 +2401,14 @@ export namespace Prisma {
     supervisorId: string | null
     creatorId: string | null
     notes: string | null
+    contract: Decimal | null
+    description: string | null
+    firm: string | null
+    tenderNo: string | null
   }
 
   export type JobCountAggregateOutputType = {
     id: number
-    tenderNo: number
-    firm: number
-    contract: number
-    description: number
     status: number
     createdAt: number
     updatedAt: number
@@ -2407,6 +2416,10 @@ export namespace Prisma {
     supervisorId: number
     creatorId: number
     notes: number
+    contract: number
+    description: number
+    firm: number
+    tenderNo: number
     _all: number
   }
 
@@ -2421,10 +2434,6 @@ export namespace Prisma {
 
   export type JobMinAggregateInputType = {
     id?: true
-    tenderNo?: true
-    firm?: true
-    contract?: true
-    description?: true
     status?: true
     createdAt?: true
     updatedAt?: true
@@ -2432,14 +2441,14 @@ export namespace Prisma {
     supervisorId?: true
     creatorId?: true
     notes?: true
+    contract?: true
+    description?: true
+    firm?: true
+    tenderNo?: true
   }
 
   export type JobMaxAggregateInputType = {
     id?: true
-    tenderNo?: true
-    firm?: true
-    contract?: true
-    description?: true
     status?: true
     createdAt?: true
     updatedAt?: true
@@ -2447,14 +2456,14 @@ export namespace Prisma {
     supervisorId?: true
     creatorId?: true
     notes?: true
+    contract?: true
+    description?: true
+    firm?: true
+    tenderNo?: true
   }
 
   export type JobCountAggregateInputType = {
     id?: true
-    tenderNo?: true
-    firm?: true
-    contract?: true
-    description?: true
     status?: true
     createdAt?: true
     updatedAt?: true
@@ -2462,6 +2471,10 @@ export namespace Prisma {
     supervisorId?: true
     creatorId?: true
     notes?: true
+    contract?: true
+    description?: true
+    firm?: true
+    tenderNo?: true
     _all?: true
   }
 
@@ -2553,10 +2566,6 @@ export namespace Prisma {
 
   export type JobGroupByOutputType = {
     id: string
-    tenderNo: string
-    firm: string
-    contract: Decimal
-    description: string
     status: $Enums.JobStatus
     createdAt: Date
     updatedAt: Date
@@ -2564,6 +2573,10 @@ export namespace Prisma {
     supervisorId: string | null
     creatorId: string | null
     notes: string | null
+    contract: Decimal
+    description: string
+    firm: string
+    tenderNo: string
     _count: JobCountAggregateOutputType | null
     _avg: JobAvgAggregateOutputType | null
     _sum: JobSumAggregateOutputType | null
@@ -2587,10 +2600,6 @@ export namespace Prisma {
 
   export type JobSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    tenderNo?: boolean
-    firm?: boolean
-    contract?: boolean
-    description?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2598,19 +2607,19 @@ export namespace Prisma {
     supervisorId?: boolean
     creatorId?: boolean
     notes?: boolean
-    technician?: boolean | Job$technicianArgs<ExtArgs>
-    supervisor?: boolean | Job$supervisorArgs<ExtArgs>
+    contract?: boolean
+    description?: boolean
+    firm?: boolean
+    tenderNo?: boolean
     creator?: boolean | Job$creatorArgs<ExtArgs>
+    supervisor?: boolean | Job$supervisorArgs<ExtArgs>
+    technician?: boolean | Job$technicianArgs<ExtArgs>
     logs?: boolean | Job$logsArgs<ExtArgs>
     _count?: boolean | JobCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["job"]>
 
   export type JobSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    tenderNo?: boolean
-    firm?: boolean
-    contract?: boolean
-    description?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2618,17 +2627,17 @@ export namespace Prisma {
     supervisorId?: boolean
     creatorId?: boolean
     notes?: boolean
-    technician?: boolean | Job$technicianArgs<ExtArgs>
-    supervisor?: boolean | Job$supervisorArgs<ExtArgs>
+    contract?: boolean
+    description?: boolean
+    firm?: boolean
+    tenderNo?: boolean
     creator?: boolean | Job$creatorArgs<ExtArgs>
+    supervisor?: boolean | Job$supervisorArgs<ExtArgs>
+    technician?: boolean | Job$technicianArgs<ExtArgs>
   }, ExtArgs["result"]["job"]>
 
   export type JobSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    tenderNo?: boolean
-    firm?: boolean
-    contract?: boolean
-    description?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2636,17 +2645,17 @@ export namespace Prisma {
     supervisorId?: boolean
     creatorId?: boolean
     notes?: boolean
-    technician?: boolean | Job$technicianArgs<ExtArgs>
-    supervisor?: boolean | Job$supervisorArgs<ExtArgs>
+    contract?: boolean
+    description?: boolean
+    firm?: boolean
+    tenderNo?: boolean
     creator?: boolean | Job$creatorArgs<ExtArgs>
+    supervisor?: boolean | Job$supervisorArgs<ExtArgs>
+    technician?: boolean | Job$technicianArgs<ExtArgs>
   }, ExtArgs["result"]["job"]>
 
   export type JobSelectScalar = {
     id?: boolean
-    tenderNo?: boolean
-    firm?: boolean
-    contract?: boolean
-    description?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2654,41 +2663,41 @@ export namespace Prisma {
     supervisorId?: boolean
     creatorId?: boolean
     notes?: boolean
+    contract?: boolean
+    description?: boolean
+    firm?: boolean
+    tenderNo?: boolean
   }
 
-  export type JobOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenderNo" | "firm" | "contract" | "description" | "status" | "createdAt" | "updatedAt" | "technicianId" | "supervisorId" | "creatorId" | "notes", ExtArgs["result"]["job"]>
+  export type JobOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "status" | "createdAt" | "updatedAt" | "technicianId" | "supervisorId" | "creatorId" | "notes" | "contract" | "description" | "firm" | "tenderNo", ExtArgs["result"]["job"]>
   export type JobInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    technician?: boolean | Job$technicianArgs<ExtArgs>
-    supervisor?: boolean | Job$supervisorArgs<ExtArgs>
     creator?: boolean | Job$creatorArgs<ExtArgs>
+    supervisor?: boolean | Job$supervisorArgs<ExtArgs>
+    technician?: boolean | Job$technicianArgs<ExtArgs>
     logs?: boolean | Job$logsArgs<ExtArgs>
     _count?: boolean | JobCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type JobIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    technician?: boolean | Job$technicianArgs<ExtArgs>
-    supervisor?: boolean | Job$supervisorArgs<ExtArgs>
     creator?: boolean | Job$creatorArgs<ExtArgs>
+    supervisor?: boolean | Job$supervisorArgs<ExtArgs>
+    technician?: boolean | Job$technicianArgs<ExtArgs>
   }
   export type JobIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    technician?: boolean | Job$technicianArgs<ExtArgs>
-    supervisor?: boolean | Job$supervisorArgs<ExtArgs>
     creator?: boolean | Job$creatorArgs<ExtArgs>
+    supervisor?: boolean | Job$supervisorArgs<ExtArgs>
+    technician?: boolean | Job$technicianArgs<ExtArgs>
   }
 
   export type $JobPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Job"
     objects: {
-      technician: Prisma.$UserPayload<ExtArgs> | null
-      supervisor: Prisma.$UserPayload<ExtArgs> | null
       creator: Prisma.$UserPayload<ExtArgs> | null
+      supervisor: Prisma.$UserPayload<ExtArgs> | null
+      technician: Prisma.$UserPayload<ExtArgs> | null
       logs: Prisma.$ProgressLogPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      tenderNo: string
-      firm: string
-      contract: Prisma.Decimal
-      description: string
       status: $Enums.JobStatus
       createdAt: Date
       updatedAt: Date
@@ -2696,6 +2705,10 @@ export namespace Prisma {
       supervisorId: string | null
       creatorId: string | null
       notes: string | null
+      contract: Prisma.Decimal
+      description: string
+      firm: string
+      tenderNo: string
     }, ExtArgs["result"]["job"]>
     composites: {}
   }
@@ -3090,9 +3103,9 @@ export namespace Prisma {
    */
   export interface Prisma__JobClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    technician<T extends Job$technicianArgs<ExtArgs> = {}>(args?: Subset<T, Job$technicianArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    supervisor<T extends Job$supervisorArgs<ExtArgs> = {}>(args?: Subset<T, Job$supervisorArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     creator<T extends Job$creatorArgs<ExtArgs> = {}>(args?: Subset<T, Job$creatorArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    supervisor<T extends Job$supervisorArgs<ExtArgs> = {}>(args?: Subset<T, Job$supervisorArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    technician<T extends Job$technicianArgs<ExtArgs> = {}>(args?: Subset<T, Job$technicianArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     logs<T extends Job$logsArgs<ExtArgs> = {}>(args?: Subset<T, Job$logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProgressLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -3124,10 +3137,6 @@ export namespace Prisma {
    */
   interface JobFieldRefs {
     readonly id: FieldRef<"Job", 'String'>
-    readonly tenderNo: FieldRef<"Job", 'String'>
-    readonly firm: FieldRef<"Job", 'String'>
-    readonly contract: FieldRef<"Job", 'Decimal'>
-    readonly description: FieldRef<"Job", 'String'>
     readonly status: FieldRef<"Job", 'JobStatus'>
     readonly createdAt: FieldRef<"Job", 'DateTime'>
     readonly updatedAt: FieldRef<"Job", 'DateTime'>
@@ -3135,6 +3144,10 @@ export namespace Prisma {
     readonly supervisorId: FieldRef<"Job", 'String'>
     readonly creatorId: FieldRef<"Job", 'String'>
     readonly notes: FieldRef<"Job", 'String'>
+    readonly contract: FieldRef<"Job", 'Decimal'>
+    readonly description: FieldRef<"Job", 'String'>
+    readonly firm: FieldRef<"Job", 'String'>
+    readonly tenderNo: FieldRef<"Job", 'String'>
   }
     
 
@@ -3531,9 +3544,9 @@ export namespace Prisma {
   }
 
   /**
-   * Job.technician
+   * Job.creator
    */
-  export type Job$technicianArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Job$creatorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */
@@ -3569,9 +3582,9 @@ export namespace Prisma {
   }
 
   /**
-   * Job.creator
+   * Job.technician
    */
-  export type Job$creatorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Job$technicianArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */
@@ -4717,7 +4730,8 @@ export namespace Prisma {
     lastName: 'lastName',
     email: 'email',
     role: 'role',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    onboardingCompleted: 'onboardingCompleted'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -4725,17 +4739,17 @@ export namespace Prisma {
 
   export const JobScalarFieldEnum: {
     id: 'id',
-    tenderNo: 'tenderNo',
-    firm: 'firm',
-    contract: 'contract',
-    description: 'description',
     status: 'status',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     technicianId: 'technicianId',
     supervisorId: 'supervisorId',
     creatorId: 'creatorId',
-    notes: 'notes'
+    notes: 'notes',
+    contract: 'contract',
+    description: 'description',
+    firm: 'firm',
+    tenderNo: 'tenderNo'
   };
 
   export type JobScalarFieldEnum = (typeof JobScalarFieldEnum)[keyof typeof JobScalarFieldEnum]
@@ -4824,16 +4838,9 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Decimal'
+   * Reference to a field of type 'Boolean'
    */
-  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
-    
-
-
-  /**
-   * Reference to a field of type 'Decimal[]'
-   */
-  export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -4848,6 +4855,20 @@ export namespace Prisma {
    * Reference to a field of type 'JobStatus[]'
    */
   export type ListEnumJobStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal'
+   */
+  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal[]'
+   */
+  export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
     
 
 
@@ -4879,10 +4900,11 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
     createdAt?: DateTimeFilter<"User"> | Date | string
-    logs?: ProgressLogListRelationFilter
-    assignedJobs?: JobListRelationFilter
-    supervisedJobs?: JobListRelationFilter
+    onboardingCompleted?: BoolFilter<"User"> | boolean
     createdJobs?: JobListRelationFilter
+    supervisedJobs?: JobListRelationFilter
+    assignedJobs?: JobListRelationFilter
+    logs?: ProgressLogListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -4893,10 +4915,11 @@ export namespace Prisma {
     email?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
-    logs?: ProgressLogOrderByRelationAggregateInput
-    assignedJobs?: JobOrderByRelationAggregateInput
-    supervisedJobs?: JobOrderByRelationAggregateInput
+    onboardingCompleted?: SortOrder
     createdJobs?: JobOrderByRelationAggregateInput
+    supervisedJobs?: JobOrderByRelationAggregateInput
+    assignedJobs?: JobOrderByRelationAggregateInput
+    logs?: ProgressLogOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -4910,10 +4933,11 @@ export namespace Prisma {
     lastName?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
     createdAt?: DateTimeFilter<"User"> | Date | string
-    logs?: ProgressLogListRelationFilter
-    assignedJobs?: JobListRelationFilter
-    supervisedJobs?: JobListRelationFilter
+    onboardingCompleted?: BoolFilter<"User"> | boolean
     createdJobs?: JobListRelationFilter
+    supervisedJobs?: JobListRelationFilter
+    assignedJobs?: JobListRelationFilter
+    logs?: ProgressLogListRelationFilter
   }, "id" | "clerkId" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -4924,6 +4948,7 @@ export namespace Prisma {
     email?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
+    onboardingCompleted?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -4940,6 +4965,7 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"User"> | string
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    onboardingCompleted?: BoolWithAggregatesFilter<"User"> | boolean
   }
 
   export type JobWhereInput = {
@@ -4947,10 +4973,6 @@ export namespace Prisma {
     OR?: JobWhereInput[]
     NOT?: JobWhereInput | JobWhereInput[]
     id?: StringFilter<"Job"> | string
-    tenderNo?: StringFilter<"Job"> | string
-    firm?: StringFilter<"Job"> | string
-    contract?: DecimalFilter<"Job"> | Decimal | DecimalJsLike | number | string
-    description?: StringFilter<"Job"> | string
     status?: EnumJobStatusFilter<"Job"> | $Enums.JobStatus
     createdAt?: DateTimeFilter<"Job"> | Date | string
     updatedAt?: DateTimeFilter<"Job"> | Date | string
@@ -4958,18 +4980,18 @@ export namespace Prisma {
     supervisorId?: StringNullableFilter<"Job"> | string | null
     creatorId?: StringNullableFilter<"Job"> | string | null
     notes?: StringNullableFilter<"Job"> | string | null
-    technician?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-    supervisor?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    contract?: DecimalFilter<"Job"> | Decimal | DecimalJsLike | number | string
+    description?: StringFilter<"Job"> | string
+    firm?: StringFilter<"Job"> | string
+    tenderNo?: StringFilter<"Job"> | string
     creator?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    supervisor?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    technician?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     logs?: ProgressLogListRelationFilter
   }
 
   export type JobOrderByWithRelationInput = {
     id?: SortOrder
-    tenderNo?: SortOrder
-    firm?: SortOrder
-    contract?: SortOrder
-    description?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -4977,9 +4999,13 @@ export namespace Prisma {
     supervisorId?: SortOrderInput | SortOrder
     creatorId?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
-    technician?: UserOrderByWithRelationInput
-    supervisor?: UserOrderByWithRelationInput
+    contract?: SortOrder
+    description?: SortOrder
+    firm?: SortOrder
+    tenderNo?: SortOrder
     creator?: UserOrderByWithRelationInput
+    supervisor?: UserOrderByWithRelationInput
+    technician?: UserOrderByWithRelationInput
     logs?: ProgressLogOrderByRelationAggregateInput
   }
 
@@ -4989,9 +5015,6 @@ export namespace Prisma {
     AND?: JobWhereInput | JobWhereInput[]
     OR?: JobWhereInput[]
     NOT?: JobWhereInput | JobWhereInput[]
-    firm?: StringFilter<"Job"> | string
-    contract?: DecimalFilter<"Job"> | Decimal | DecimalJsLike | number | string
-    description?: StringFilter<"Job"> | string
     status?: EnumJobStatusFilter<"Job"> | $Enums.JobStatus
     createdAt?: DateTimeFilter<"Job"> | Date | string
     updatedAt?: DateTimeFilter<"Job"> | Date | string
@@ -4999,18 +5022,17 @@ export namespace Prisma {
     supervisorId?: StringNullableFilter<"Job"> | string | null
     creatorId?: StringNullableFilter<"Job"> | string | null
     notes?: StringNullableFilter<"Job"> | string | null
-    technician?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-    supervisor?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    contract?: DecimalFilter<"Job"> | Decimal | DecimalJsLike | number | string
+    description?: StringFilter<"Job"> | string
+    firm?: StringFilter<"Job"> | string
     creator?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    supervisor?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    technician?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     logs?: ProgressLogListRelationFilter
   }, "id" | "tenderNo">
 
   export type JobOrderByWithAggregationInput = {
     id?: SortOrder
-    tenderNo?: SortOrder
-    firm?: SortOrder
-    contract?: SortOrder
-    description?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -5018,6 +5040,10 @@ export namespace Prisma {
     supervisorId?: SortOrderInput | SortOrder
     creatorId?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
+    contract?: SortOrder
+    description?: SortOrder
+    firm?: SortOrder
+    tenderNo?: SortOrder
     _count?: JobCountOrderByAggregateInput
     _avg?: JobAvgOrderByAggregateInput
     _max?: JobMaxOrderByAggregateInput
@@ -5030,10 +5056,6 @@ export namespace Prisma {
     OR?: JobScalarWhereWithAggregatesInput[]
     NOT?: JobScalarWhereWithAggregatesInput | JobScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Job"> | string
-    tenderNo?: StringWithAggregatesFilter<"Job"> | string
-    firm?: StringWithAggregatesFilter<"Job"> | string
-    contract?: DecimalWithAggregatesFilter<"Job"> | Decimal | DecimalJsLike | number | string
-    description?: StringWithAggregatesFilter<"Job"> | string
     status?: EnumJobStatusWithAggregatesFilter<"Job"> | $Enums.JobStatus
     createdAt?: DateTimeWithAggregatesFilter<"Job"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Job"> | Date | string
@@ -5041,6 +5063,10 @@ export namespace Prisma {
     supervisorId?: StringNullableWithAggregatesFilter<"Job"> | string | null
     creatorId?: StringNullableWithAggregatesFilter<"Job"> | string | null
     notes?: StringNullableWithAggregatesFilter<"Job"> | string | null
+    contract?: DecimalWithAggregatesFilter<"Job"> | Decimal | DecimalJsLike | number | string
+    description?: StringWithAggregatesFilter<"Job"> | string
+    firm?: StringWithAggregatesFilter<"Job"> | string
+    tenderNo?: StringWithAggregatesFilter<"Job"> | string
   }
 
   export type ProgressLogWhereInput = {
@@ -5109,10 +5135,11 @@ export namespace Prisma {
     email: string
     role?: $Enums.Role
     createdAt?: Date | string
-    logs?: ProgressLogCreateNestedManyWithoutUserInput
-    assignedJobs?: JobCreateNestedManyWithoutTechnicianInput
-    supervisedJobs?: JobCreateNestedManyWithoutSupervisorInput
+    onboardingCompleted?: boolean
     createdJobs?: JobCreateNestedManyWithoutCreatorInput
+    supervisedJobs?: JobCreateNestedManyWithoutSupervisorInput
+    assignedJobs?: JobCreateNestedManyWithoutTechnicianInput
+    logs?: ProgressLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -5123,10 +5150,11 @@ export namespace Prisma {
     email: string
     role?: $Enums.Role
     createdAt?: Date | string
-    logs?: ProgressLogUncheckedCreateNestedManyWithoutUserInput
-    assignedJobs?: JobUncheckedCreateNestedManyWithoutTechnicianInput
-    supervisedJobs?: JobUncheckedCreateNestedManyWithoutSupervisorInput
+    onboardingCompleted?: boolean
     createdJobs?: JobUncheckedCreateNestedManyWithoutCreatorInput
+    supervisedJobs?: JobUncheckedCreateNestedManyWithoutSupervisorInput
+    assignedJobs?: JobUncheckedCreateNestedManyWithoutTechnicianInput
+    logs?: ProgressLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -5137,10 +5165,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    logs?: ProgressLogUpdateManyWithoutUserNestedInput
-    assignedJobs?: JobUpdateManyWithoutTechnicianNestedInput
-    supervisedJobs?: JobUpdateManyWithoutSupervisorNestedInput
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdJobs?: JobUpdateManyWithoutCreatorNestedInput
+    supervisedJobs?: JobUpdateManyWithoutSupervisorNestedInput
+    assignedJobs?: JobUpdateManyWithoutTechnicianNestedInput
+    logs?: ProgressLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -5151,10 +5180,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    logs?: ProgressLogUncheckedUpdateManyWithoutUserNestedInput
-    assignedJobs?: JobUncheckedUpdateManyWithoutTechnicianNestedInput
-    supervisedJobs?: JobUncheckedUpdateManyWithoutSupervisorNestedInput
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdJobs?: JobUncheckedUpdateManyWithoutCreatorNestedInput
+    supervisedJobs?: JobUncheckedUpdateManyWithoutSupervisorNestedInput
+    assignedJobs?: JobUncheckedUpdateManyWithoutTechnicianNestedInput
+    logs?: ProgressLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -5165,6 +5195,7 @@ export namespace Prisma {
     email: string
     role?: $Enums.Role
     createdAt?: Date | string
+    onboardingCompleted?: boolean
   }
 
   export type UserUpdateManyMutationInput = {
@@ -5175,6 +5206,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -5185,30 +5217,27 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type JobCreateInput = {
     id?: string
-    tenderNo: string
-    firm: string
-    contract: Decimal | DecimalJsLike | number | string
-    description: string
     status?: $Enums.JobStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     notes?: string | null
-    technician?: UserCreateNestedOneWithoutAssignedJobsInput
-    supervisor?: UserCreateNestedOneWithoutSupervisedJobsInput
+    contract: Decimal | DecimalJsLike | number | string
+    description: string
+    firm: string
+    tenderNo: string
     creator?: UserCreateNestedOneWithoutCreatedJobsInput
+    supervisor?: UserCreateNestedOneWithoutSupervisedJobsInput
+    technician?: UserCreateNestedOneWithoutAssignedJobsInput
     logs?: ProgressLogCreateNestedManyWithoutJobInput
   }
 
   export type JobUncheckedCreateInput = {
     id?: string
-    tenderNo: string
-    firm: string
-    contract: Decimal | DecimalJsLike | number | string
-    description: string
     status?: $Enums.JobStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5216,31 +5245,31 @@ export namespace Prisma {
     supervisorId?: string | null
     creatorId?: string | null
     notes?: string | null
+    contract: Decimal | DecimalJsLike | number | string
+    description: string
+    firm: string
+    tenderNo: string
     logs?: ProgressLogUncheckedCreateNestedManyWithoutJobInput
   }
 
   export type JobUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tenderNo?: StringFieldUpdateOperationsInput | string
-    firm?: StringFieldUpdateOperationsInput | string
-    contract?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    description?: StringFieldUpdateOperationsInput | string
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    technician?: UserUpdateOneWithoutAssignedJobsNestedInput
-    supervisor?: UserUpdateOneWithoutSupervisedJobsNestedInput
+    contract?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    firm?: StringFieldUpdateOperationsInput | string
+    tenderNo?: StringFieldUpdateOperationsInput | string
     creator?: UserUpdateOneWithoutCreatedJobsNestedInput
+    supervisor?: UserUpdateOneWithoutSupervisedJobsNestedInput
+    technician?: UserUpdateOneWithoutAssignedJobsNestedInput
     logs?: ProgressLogUpdateManyWithoutJobNestedInput
   }
 
   export type JobUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tenderNo?: StringFieldUpdateOperationsInput | string
-    firm?: StringFieldUpdateOperationsInput | string
-    contract?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    description?: StringFieldUpdateOperationsInput | string
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5248,15 +5277,15 @@ export namespace Prisma {
     supervisorId?: NullableStringFieldUpdateOperationsInput | string | null
     creatorId?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    contract?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    firm?: StringFieldUpdateOperationsInput | string
+    tenderNo?: StringFieldUpdateOperationsInput | string
     logs?: ProgressLogUncheckedUpdateManyWithoutJobNestedInput
   }
 
   export type JobCreateManyInput = {
     id?: string
-    tenderNo: string
-    firm: string
-    contract: Decimal | DecimalJsLike | number | string
-    description: string
     status?: $Enums.JobStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5264,26 +5293,26 @@ export namespace Prisma {
     supervisorId?: string | null
     creatorId?: string | null
     notes?: string | null
+    contract: Decimal | DecimalJsLike | number | string
+    description: string
+    firm: string
+    tenderNo: string
   }
 
   export type JobUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tenderNo?: StringFieldUpdateOperationsInput | string
-    firm?: StringFieldUpdateOperationsInput | string
-    contract?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    description?: StringFieldUpdateOperationsInput | string
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    contract?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    firm?: StringFieldUpdateOperationsInput | string
+    tenderNo?: StringFieldUpdateOperationsInput | string
   }
 
   export type JobUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tenderNo?: StringFieldUpdateOperationsInput | string
-    firm?: StringFieldUpdateOperationsInput | string
-    contract?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    description?: StringFieldUpdateOperationsInput | string
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5291,6 +5320,10 @@ export namespace Prisma {
     supervisorId?: NullableStringFieldUpdateOperationsInput | string | null
     creatorId?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    contract?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    firm?: StringFieldUpdateOperationsInput | string
+    tenderNo?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProgressLogCreateInput = {
@@ -5380,10 +5413,9 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type ProgressLogListRelationFilter = {
-    every?: ProgressLogWhereInput
-    some?: ProgressLogWhereInput
-    none?: ProgressLogWhereInput
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type JobListRelationFilter = {
@@ -5392,11 +5424,17 @@ export namespace Prisma {
     none?: JobWhereInput
   }
 
-  export type ProgressLogOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type ProgressLogListRelationFilter = {
+    every?: ProgressLogWhereInput
+    some?: ProgressLogWhereInput
+    none?: ProgressLogWhereInput
   }
 
   export type JobOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ProgressLogOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -5408,6 +5446,7 @@ export namespace Prisma {
     email?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
+    onboardingCompleted?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -5418,6 +5457,7 @@ export namespace Prisma {
     email?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
+    onboardingCompleted?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -5428,6 +5468,7 @@ export namespace Prisma {
     email?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
+    onboardingCompleted?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -5472,15 +5513,12 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type DecimalFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type EnumJobStatusFilter<$PrismaModel = never> = {
@@ -5505,6 +5543,17 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type DecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
   export type UserNullableScalarRelationFilter = {
     is?: UserWhereInput | null
     isNot?: UserWhereInput | null
@@ -5517,10 +5566,6 @@ export namespace Prisma {
 
   export type JobCountOrderByAggregateInput = {
     id?: SortOrder
-    tenderNo?: SortOrder
-    firm?: SortOrder
-    contract?: SortOrder
-    description?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -5528,6 +5573,10 @@ export namespace Prisma {
     supervisorId?: SortOrder
     creatorId?: SortOrder
     notes?: SortOrder
+    contract?: SortOrder
+    description?: SortOrder
+    firm?: SortOrder
+    tenderNo?: SortOrder
   }
 
   export type JobAvgOrderByAggregateInput = {
@@ -5536,10 +5585,6 @@ export namespace Prisma {
 
   export type JobMaxOrderByAggregateInput = {
     id?: SortOrder
-    tenderNo?: SortOrder
-    firm?: SortOrder
-    contract?: SortOrder
-    description?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -5547,14 +5592,14 @@ export namespace Prisma {
     supervisorId?: SortOrder
     creatorId?: SortOrder
     notes?: SortOrder
+    contract?: SortOrder
+    description?: SortOrder
+    firm?: SortOrder
+    tenderNo?: SortOrder
   }
 
   export type JobMinOrderByAggregateInput = {
     id?: SortOrder
-    tenderNo?: SortOrder
-    firm?: SortOrder
-    contract?: SortOrder
-    description?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -5562,26 +5607,14 @@ export namespace Prisma {
     supervisorId?: SortOrder
     creatorId?: SortOrder
     notes?: SortOrder
+    contract?: SortOrder
+    description?: SortOrder
+    firm?: SortOrder
+    tenderNo?: SortOrder
   }
 
   export type JobSumOrderByAggregateInput = {
     contract?: SortOrder
-  }
-
-  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedDecimalFilter<$PrismaModel>
-    _sum?: NestedDecimalFilter<$PrismaModel>
-    _min?: NestedDecimalFilter<$PrismaModel>
-    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type EnumJobStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -5610,6 +5643,22 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type JobScalarRelationFilter = {
@@ -5646,17 +5695,10 @@ export namespace Prisma {
     userId?: SortOrder
   }
 
-  export type ProgressLogCreateNestedManyWithoutUserInput = {
-    create?: XOR<ProgressLogCreateWithoutUserInput, ProgressLogUncheckedCreateWithoutUserInput> | ProgressLogCreateWithoutUserInput[] | ProgressLogUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ProgressLogCreateOrConnectWithoutUserInput | ProgressLogCreateOrConnectWithoutUserInput[]
-    createMany?: ProgressLogCreateManyUserInputEnvelope
-    connect?: ProgressLogWhereUniqueInput | ProgressLogWhereUniqueInput[]
-  }
-
-  export type JobCreateNestedManyWithoutTechnicianInput = {
-    create?: XOR<JobCreateWithoutTechnicianInput, JobUncheckedCreateWithoutTechnicianInput> | JobCreateWithoutTechnicianInput[] | JobUncheckedCreateWithoutTechnicianInput[]
-    connectOrCreate?: JobCreateOrConnectWithoutTechnicianInput | JobCreateOrConnectWithoutTechnicianInput[]
-    createMany?: JobCreateManyTechnicianInputEnvelope
+  export type JobCreateNestedManyWithoutCreatorInput = {
+    create?: XOR<JobCreateWithoutCreatorInput, JobUncheckedCreateWithoutCreatorInput> | JobCreateWithoutCreatorInput[] | JobUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: JobCreateOrConnectWithoutCreatorInput | JobCreateOrConnectWithoutCreatorInput[]
+    createMany?: JobCreateManyCreatorInputEnvelope
     connect?: JobWhereUniqueInput | JobWhereUniqueInput[]
   }
 
@@ -5667,24 +5709,24 @@ export namespace Prisma {
     connect?: JobWhereUniqueInput | JobWhereUniqueInput[]
   }
 
-  export type JobCreateNestedManyWithoutCreatorInput = {
-    create?: XOR<JobCreateWithoutCreatorInput, JobUncheckedCreateWithoutCreatorInput> | JobCreateWithoutCreatorInput[] | JobUncheckedCreateWithoutCreatorInput[]
-    connectOrCreate?: JobCreateOrConnectWithoutCreatorInput | JobCreateOrConnectWithoutCreatorInput[]
-    createMany?: JobCreateManyCreatorInputEnvelope
+  export type JobCreateNestedManyWithoutTechnicianInput = {
+    create?: XOR<JobCreateWithoutTechnicianInput, JobUncheckedCreateWithoutTechnicianInput> | JobCreateWithoutTechnicianInput[] | JobUncheckedCreateWithoutTechnicianInput[]
+    connectOrCreate?: JobCreateOrConnectWithoutTechnicianInput | JobCreateOrConnectWithoutTechnicianInput[]
+    createMany?: JobCreateManyTechnicianInputEnvelope
     connect?: JobWhereUniqueInput | JobWhereUniqueInput[]
   }
 
-  export type ProgressLogUncheckedCreateNestedManyWithoutUserInput = {
+  export type ProgressLogCreateNestedManyWithoutUserInput = {
     create?: XOR<ProgressLogCreateWithoutUserInput, ProgressLogUncheckedCreateWithoutUserInput> | ProgressLogCreateWithoutUserInput[] | ProgressLogUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ProgressLogCreateOrConnectWithoutUserInput | ProgressLogCreateOrConnectWithoutUserInput[]
     createMany?: ProgressLogCreateManyUserInputEnvelope
     connect?: ProgressLogWhereUniqueInput | ProgressLogWhereUniqueInput[]
   }
 
-  export type JobUncheckedCreateNestedManyWithoutTechnicianInput = {
-    create?: XOR<JobCreateWithoutTechnicianInput, JobUncheckedCreateWithoutTechnicianInput> | JobCreateWithoutTechnicianInput[] | JobUncheckedCreateWithoutTechnicianInput[]
-    connectOrCreate?: JobCreateOrConnectWithoutTechnicianInput | JobCreateOrConnectWithoutTechnicianInput[]
-    createMany?: JobCreateManyTechnicianInputEnvelope
+  export type JobUncheckedCreateNestedManyWithoutCreatorInput = {
+    create?: XOR<JobCreateWithoutCreatorInput, JobUncheckedCreateWithoutCreatorInput> | JobCreateWithoutCreatorInput[] | JobUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: JobCreateOrConnectWithoutCreatorInput | JobCreateOrConnectWithoutCreatorInput[]
+    createMany?: JobCreateManyCreatorInputEnvelope
     connect?: JobWhereUniqueInput | JobWhereUniqueInput[]
   }
 
@@ -5695,11 +5737,18 @@ export namespace Prisma {
     connect?: JobWhereUniqueInput | JobWhereUniqueInput[]
   }
 
-  export type JobUncheckedCreateNestedManyWithoutCreatorInput = {
-    create?: XOR<JobCreateWithoutCreatorInput, JobUncheckedCreateWithoutCreatorInput> | JobCreateWithoutCreatorInput[] | JobUncheckedCreateWithoutCreatorInput[]
-    connectOrCreate?: JobCreateOrConnectWithoutCreatorInput | JobCreateOrConnectWithoutCreatorInput[]
-    createMany?: JobCreateManyCreatorInputEnvelope
+  export type JobUncheckedCreateNestedManyWithoutTechnicianInput = {
+    create?: XOR<JobCreateWithoutTechnicianInput, JobUncheckedCreateWithoutTechnicianInput> | JobCreateWithoutTechnicianInput[] | JobUncheckedCreateWithoutTechnicianInput[]
+    connectOrCreate?: JobCreateOrConnectWithoutTechnicianInput | JobCreateOrConnectWithoutTechnicianInput[]
+    createMany?: JobCreateManyTechnicianInputEnvelope
     connect?: JobWhereUniqueInput | JobWhereUniqueInput[]
+  }
+
+  export type ProgressLogUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ProgressLogCreateWithoutUserInput, ProgressLogUncheckedCreateWithoutUserInput> | ProgressLogCreateWithoutUserInput[] | ProgressLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ProgressLogCreateOrConnectWithoutUserInput | ProgressLogCreateOrConnectWithoutUserInput[]
+    createMany?: ProgressLogCreateManyUserInputEnvelope
+    connect?: ProgressLogWhereUniqueInput | ProgressLogWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -5714,31 +5763,21 @@ export namespace Prisma {
     set?: Date | string
   }
 
-  export type ProgressLogUpdateManyWithoutUserNestedInput = {
-    create?: XOR<ProgressLogCreateWithoutUserInput, ProgressLogUncheckedCreateWithoutUserInput> | ProgressLogCreateWithoutUserInput[] | ProgressLogUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ProgressLogCreateOrConnectWithoutUserInput | ProgressLogCreateOrConnectWithoutUserInput[]
-    upsert?: ProgressLogUpsertWithWhereUniqueWithoutUserInput | ProgressLogUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: ProgressLogCreateManyUserInputEnvelope
-    set?: ProgressLogWhereUniqueInput | ProgressLogWhereUniqueInput[]
-    disconnect?: ProgressLogWhereUniqueInput | ProgressLogWhereUniqueInput[]
-    delete?: ProgressLogWhereUniqueInput | ProgressLogWhereUniqueInput[]
-    connect?: ProgressLogWhereUniqueInput | ProgressLogWhereUniqueInput[]
-    update?: ProgressLogUpdateWithWhereUniqueWithoutUserInput | ProgressLogUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: ProgressLogUpdateManyWithWhereWithoutUserInput | ProgressLogUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: ProgressLogScalarWhereInput | ProgressLogScalarWhereInput[]
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
-  export type JobUpdateManyWithoutTechnicianNestedInput = {
-    create?: XOR<JobCreateWithoutTechnicianInput, JobUncheckedCreateWithoutTechnicianInput> | JobCreateWithoutTechnicianInput[] | JobUncheckedCreateWithoutTechnicianInput[]
-    connectOrCreate?: JobCreateOrConnectWithoutTechnicianInput | JobCreateOrConnectWithoutTechnicianInput[]
-    upsert?: JobUpsertWithWhereUniqueWithoutTechnicianInput | JobUpsertWithWhereUniqueWithoutTechnicianInput[]
-    createMany?: JobCreateManyTechnicianInputEnvelope
+  export type JobUpdateManyWithoutCreatorNestedInput = {
+    create?: XOR<JobCreateWithoutCreatorInput, JobUncheckedCreateWithoutCreatorInput> | JobCreateWithoutCreatorInput[] | JobUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: JobCreateOrConnectWithoutCreatorInput | JobCreateOrConnectWithoutCreatorInput[]
+    upsert?: JobUpsertWithWhereUniqueWithoutCreatorInput | JobUpsertWithWhereUniqueWithoutCreatorInput[]
+    createMany?: JobCreateManyCreatorInputEnvelope
     set?: JobWhereUniqueInput | JobWhereUniqueInput[]
     disconnect?: JobWhereUniqueInput | JobWhereUniqueInput[]
     delete?: JobWhereUniqueInput | JobWhereUniqueInput[]
     connect?: JobWhereUniqueInput | JobWhereUniqueInput[]
-    update?: JobUpdateWithWhereUniqueWithoutTechnicianInput | JobUpdateWithWhereUniqueWithoutTechnicianInput[]
-    updateMany?: JobUpdateManyWithWhereWithoutTechnicianInput | JobUpdateManyWithWhereWithoutTechnicianInput[]
+    update?: JobUpdateWithWhereUniqueWithoutCreatorInput | JobUpdateWithWhereUniqueWithoutCreatorInput[]
+    updateMany?: JobUpdateManyWithWhereWithoutCreatorInput | JobUpdateManyWithWhereWithoutCreatorInput[]
     deleteMany?: JobScalarWhereInput | JobScalarWhereInput[]
   }
 
@@ -5756,21 +5795,21 @@ export namespace Prisma {
     deleteMany?: JobScalarWhereInput | JobScalarWhereInput[]
   }
 
-  export type JobUpdateManyWithoutCreatorNestedInput = {
-    create?: XOR<JobCreateWithoutCreatorInput, JobUncheckedCreateWithoutCreatorInput> | JobCreateWithoutCreatorInput[] | JobUncheckedCreateWithoutCreatorInput[]
-    connectOrCreate?: JobCreateOrConnectWithoutCreatorInput | JobCreateOrConnectWithoutCreatorInput[]
-    upsert?: JobUpsertWithWhereUniqueWithoutCreatorInput | JobUpsertWithWhereUniqueWithoutCreatorInput[]
-    createMany?: JobCreateManyCreatorInputEnvelope
+  export type JobUpdateManyWithoutTechnicianNestedInput = {
+    create?: XOR<JobCreateWithoutTechnicianInput, JobUncheckedCreateWithoutTechnicianInput> | JobCreateWithoutTechnicianInput[] | JobUncheckedCreateWithoutTechnicianInput[]
+    connectOrCreate?: JobCreateOrConnectWithoutTechnicianInput | JobCreateOrConnectWithoutTechnicianInput[]
+    upsert?: JobUpsertWithWhereUniqueWithoutTechnicianInput | JobUpsertWithWhereUniqueWithoutTechnicianInput[]
+    createMany?: JobCreateManyTechnicianInputEnvelope
     set?: JobWhereUniqueInput | JobWhereUniqueInput[]
     disconnect?: JobWhereUniqueInput | JobWhereUniqueInput[]
     delete?: JobWhereUniqueInput | JobWhereUniqueInput[]
     connect?: JobWhereUniqueInput | JobWhereUniqueInput[]
-    update?: JobUpdateWithWhereUniqueWithoutCreatorInput | JobUpdateWithWhereUniqueWithoutCreatorInput[]
-    updateMany?: JobUpdateManyWithWhereWithoutCreatorInput | JobUpdateManyWithWhereWithoutCreatorInput[]
+    update?: JobUpdateWithWhereUniqueWithoutTechnicianInput | JobUpdateWithWhereUniqueWithoutTechnicianInput[]
+    updateMany?: JobUpdateManyWithWhereWithoutTechnicianInput | JobUpdateManyWithWhereWithoutTechnicianInput[]
     deleteMany?: JobScalarWhereInput | JobScalarWhereInput[]
   }
 
-  export type ProgressLogUncheckedUpdateManyWithoutUserNestedInput = {
+  export type ProgressLogUpdateManyWithoutUserNestedInput = {
     create?: XOR<ProgressLogCreateWithoutUserInput, ProgressLogUncheckedCreateWithoutUserInput> | ProgressLogCreateWithoutUserInput[] | ProgressLogUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ProgressLogCreateOrConnectWithoutUserInput | ProgressLogCreateOrConnectWithoutUserInput[]
     upsert?: ProgressLogUpsertWithWhereUniqueWithoutUserInput | ProgressLogUpsertWithWhereUniqueWithoutUserInput[]
@@ -5784,17 +5823,17 @@ export namespace Prisma {
     deleteMany?: ProgressLogScalarWhereInput | ProgressLogScalarWhereInput[]
   }
 
-  export type JobUncheckedUpdateManyWithoutTechnicianNestedInput = {
-    create?: XOR<JobCreateWithoutTechnicianInput, JobUncheckedCreateWithoutTechnicianInput> | JobCreateWithoutTechnicianInput[] | JobUncheckedCreateWithoutTechnicianInput[]
-    connectOrCreate?: JobCreateOrConnectWithoutTechnicianInput | JobCreateOrConnectWithoutTechnicianInput[]
-    upsert?: JobUpsertWithWhereUniqueWithoutTechnicianInput | JobUpsertWithWhereUniqueWithoutTechnicianInput[]
-    createMany?: JobCreateManyTechnicianInputEnvelope
+  export type JobUncheckedUpdateManyWithoutCreatorNestedInput = {
+    create?: XOR<JobCreateWithoutCreatorInput, JobUncheckedCreateWithoutCreatorInput> | JobCreateWithoutCreatorInput[] | JobUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: JobCreateOrConnectWithoutCreatorInput | JobCreateOrConnectWithoutCreatorInput[]
+    upsert?: JobUpsertWithWhereUniqueWithoutCreatorInput | JobUpsertWithWhereUniqueWithoutCreatorInput[]
+    createMany?: JobCreateManyCreatorInputEnvelope
     set?: JobWhereUniqueInput | JobWhereUniqueInput[]
     disconnect?: JobWhereUniqueInput | JobWhereUniqueInput[]
     delete?: JobWhereUniqueInput | JobWhereUniqueInput[]
     connect?: JobWhereUniqueInput | JobWhereUniqueInput[]
-    update?: JobUpdateWithWhereUniqueWithoutTechnicianInput | JobUpdateWithWhereUniqueWithoutTechnicianInput[]
-    updateMany?: JobUpdateManyWithWhereWithoutTechnicianInput | JobUpdateManyWithWhereWithoutTechnicianInput[]
+    update?: JobUpdateWithWhereUniqueWithoutCreatorInput | JobUpdateWithWhereUniqueWithoutCreatorInput[]
+    updateMany?: JobUpdateManyWithWhereWithoutCreatorInput | JobUpdateManyWithWhereWithoutCreatorInput[]
     deleteMany?: JobScalarWhereInput | JobScalarWhereInput[]
   }
 
@@ -5812,23 +5851,37 @@ export namespace Prisma {
     deleteMany?: JobScalarWhereInput | JobScalarWhereInput[]
   }
 
-  export type JobUncheckedUpdateManyWithoutCreatorNestedInput = {
-    create?: XOR<JobCreateWithoutCreatorInput, JobUncheckedCreateWithoutCreatorInput> | JobCreateWithoutCreatorInput[] | JobUncheckedCreateWithoutCreatorInput[]
-    connectOrCreate?: JobCreateOrConnectWithoutCreatorInput | JobCreateOrConnectWithoutCreatorInput[]
-    upsert?: JobUpsertWithWhereUniqueWithoutCreatorInput | JobUpsertWithWhereUniqueWithoutCreatorInput[]
-    createMany?: JobCreateManyCreatorInputEnvelope
+  export type JobUncheckedUpdateManyWithoutTechnicianNestedInput = {
+    create?: XOR<JobCreateWithoutTechnicianInput, JobUncheckedCreateWithoutTechnicianInput> | JobCreateWithoutTechnicianInput[] | JobUncheckedCreateWithoutTechnicianInput[]
+    connectOrCreate?: JobCreateOrConnectWithoutTechnicianInput | JobCreateOrConnectWithoutTechnicianInput[]
+    upsert?: JobUpsertWithWhereUniqueWithoutTechnicianInput | JobUpsertWithWhereUniqueWithoutTechnicianInput[]
+    createMany?: JobCreateManyTechnicianInputEnvelope
     set?: JobWhereUniqueInput | JobWhereUniqueInput[]
     disconnect?: JobWhereUniqueInput | JobWhereUniqueInput[]
     delete?: JobWhereUniqueInput | JobWhereUniqueInput[]
     connect?: JobWhereUniqueInput | JobWhereUniqueInput[]
-    update?: JobUpdateWithWhereUniqueWithoutCreatorInput | JobUpdateWithWhereUniqueWithoutCreatorInput[]
-    updateMany?: JobUpdateManyWithWhereWithoutCreatorInput | JobUpdateManyWithWhereWithoutCreatorInput[]
+    update?: JobUpdateWithWhereUniqueWithoutTechnicianInput | JobUpdateWithWhereUniqueWithoutTechnicianInput[]
+    updateMany?: JobUpdateManyWithWhereWithoutTechnicianInput | JobUpdateManyWithWhereWithoutTechnicianInput[]
     deleteMany?: JobScalarWhereInput | JobScalarWhereInput[]
   }
 
-  export type UserCreateNestedOneWithoutAssignedJobsInput = {
-    create?: XOR<UserCreateWithoutAssignedJobsInput, UserUncheckedCreateWithoutAssignedJobsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutAssignedJobsInput
+  export type ProgressLogUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ProgressLogCreateWithoutUserInput, ProgressLogUncheckedCreateWithoutUserInput> | ProgressLogCreateWithoutUserInput[] | ProgressLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ProgressLogCreateOrConnectWithoutUserInput | ProgressLogCreateOrConnectWithoutUserInput[]
+    upsert?: ProgressLogUpsertWithWhereUniqueWithoutUserInput | ProgressLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ProgressLogCreateManyUserInputEnvelope
+    set?: ProgressLogWhereUniqueInput | ProgressLogWhereUniqueInput[]
+    disconnect?: ProgressLogWhereUniqueInput | ProgressLogWhereUniqueInput[]
+    delete?: ProgressLogWhereUniqueInput | ProgressLogWhereUniqueInput[]
+    connect?: ProgressLogWhereUniqueInput | ProgressLogWhereUniqueInput[]
+    update?: ProgressLogUpdateWithWhereUniqueWithoutUserInput | ProgressLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ProgressLogUpdateManyWithWhereWithoutUserInput | ProgressLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ProgressLogScalarWhereInput | ProgressLogScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutCreatedJobsInput = {
+    create?: XOR<UserCreateWithoutCreatedJobsInput, UserUncheckedCreateWithoutCreatedJobsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCreatedJobsInput
     connect?: UserWhereUniqueInput
   }
 
@@ -5838,9 +5891,9 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type UserCreateNestedOneWithoutCreatedJobsInput = {
-    create?: XOR<UserCreateWithoutCreatedJobsInput, UserUncheckedCreateWithoutCreatedJobsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutCreatedJobsInput
+  export type UserCreateNestedOneWithoutAssignedJobsInput = {
+    create?: XOR<UserCreateWithoutAssignedJobsInput, UserUncheckedCreateWithoutAssignedJobsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAssignedJobsInput
     connect?: UserWhereUniqueInput
   }
 
@@ -5858,14 +5911,6 @@ export namespace Prisma {
     connect?: ProgressLogWhereUniqueInput | ProgressLogWhereUniqueInput[]
   }
 
-  export type DecimalFieldUpdateOperationsInput = {
-    set?: Decimal | DecimalJsLike | number | string
-    increment?: Decimal | DecimalJsLike | number | string
-    decrement?: Decimal | DecimalJsLike | number | string
-    multiply?: Decimal | DecimalJsLike | number | string
-    divide?: Decimal | DecimalJsLike | number | string
-  }
-
   export type EnumJobStatusFieldUpdateOperationsInput = {
     set?: $Enums.JobStatus
   }
@@ -5874,14 +5919,22 @@ export namespace Prisma {
     set?: string | null
   }
 
-  export type UserUpdateOneWithoutAssignedJobsNestedInput = {
-    create?: XOR<UserCreateWithoutAssignedJobsInput, UserUncheckedCreateWithoutAssignedJobsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutAssignedJobsInput
-    upsert?: UserUpsertWithoutAssignedJobsInput
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type UserUpdateOneWithoutCreatedJobsNestedInput = {
+    create?: XOR<UserCreateWithoutCreatedJobsInput, UserUncheckedCreateWithoutCreatedJobsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCreatedJobsInput
+    upsert?: UserUpsertWithoutCreatedJobsInput
     disconnect?: UserWhereInput | boolean
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAssignedJobsInput, UserUpdateWithoutAssignedJobsInput>, UserUncheckedUpdateWithoutAssignedJobsInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCreatedJobsInput, UserUpdateWithoutCreatedJobsInput>, UserUncheckedUpdateWithoutCreatedJobsInput>
   }
 
   export type UserUpdateOneWithoutSupervisedJobsNestedInput = {
@@ -5894,14 +5947,14 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSupervisedJobsInput, UserUpdateWithoutSupervisedJobsInput>, UserUncheckedUpdateWithoutSupervisedJobsInput>
   }
 
-  export type UserUpdateOneWithoutCreatedJobsNestedInput = {
-    create?: XOR<UserCreateWithoutCreatedJobsInput, UserUncheckedCreateWithoutCreatedJobsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutCreatedJobsInput
-    upsert?: UserUpsertWithoutCreatedJobsInput
+  export type UserUpdateOneWithoutAssignedJobsNestedInput = {
+    create?: XOR<UserCreateWithoutAssignedJobsInput, UserUncheckedCreateWithoutAssignedJobsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAssignedJobsInput
+    upsert?: UserUpsertWithoutAssignedJobsInput
     disconnect?: UserWhereInput | boolean
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCreatedJobsInput, UserUpdateWithoutCreatedJobsInput>, UserUncheckedUpdateWithoutCreatedJobsInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAssignedJobsInput, UserUpdateWithoutAssignedJobsInput>, UserUncheckedUpdateWithoutAssignedJobsInput>
   }
 
   export type ProgressLogUpdateManyWithoutJobNestedInput = {
@@ -5992,6 +6045,11 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -6044,15 +6102,12 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedDecimalFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedEnumJobStatusFilter<$PrismaModel = never> = {
@@ -6076,7 +6131,7 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
+  export type NestedDecimalFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
     notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -6084,12 +6139,7 @@ export namespace Prisma {
     lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedDecimalFilter<$PrismaModel>
-    _sum?: NestedDecimalFilter<$PrismaModel>
-    _min?: NestedDecimalFilter<$PrismaModel>
-    _max?: NestedDecimalFilter<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
   export type NestedEnumJobStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -6130,6 +6180,142 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type JobCreateWithoutCreatorInput = {
+    id?: string
+    status?: $Enums.JobStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    notes?: string | null
+    contract: Decimal | DecimalJsLike | number | string
+    description: string
+    firm: string
+    tenderNo: string
+    supervisor?: UserCreateNestedOneWithoutSupervisedJobsInput
+    technician?: UserCreateNestedOneWithoutAssignedJobsInput
+    logs?: ProgressLogCreateNestedManyWithoutJobInput
+  }
+
+  export type JobUncheckedCreateWithoutCreatorInput = {
+    id?: string
+    status?: $Enums.JobStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    technicianId?: string | null
+    supervisorId?: string | null
+    notes?: string | null
+    contract: Decimal | DecimalJsLike | number | string
+    description: string
+    firm: string
+    tenderNo: string
+    logs?: ProgressLogUncheckedCreateNestedManyWithoutJobInput
+  }
+
+  export type JobCreateOrConnectWithoutCreatorInput = {
+    where: JobWhereUniqueInput
+    create: XOR<JobCreateWithoutCreatorInput, JobUncheckedCreateWithoutCreatorInput>
+  }
+
+  export type JobCreateManyCreatorInputEnvelope = {
+    data: JobCreateManyCreatorInput | JobCreateManyCreatorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type JobCreateWithoutSupervisorInput = {
+    id?: string
+    status?: $Enums.JobStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    notes?: string | null
+    contract: Decimal | DecimalJsLike | number | string
+    description: string
+    firm: string
+    tenderNo: string
+    creator?: UserCreateNestedOneWithoutCreatedJobsInput
+    technician?: UserCreateNestedOneWithoutAssignedJobsInput
+    logs?: ProgressLogCreateNestedManyWithoutJobInput
+  }
+
+  export type JobUncheckedCreateWithoutSupervisorInput = {
+    id?: string
+    status?: $Enums.JobStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    technicianId?: string | null
+    creatorId?: string | null
+    notes?: string | null
+    contract: Decimal | DecimalJsLike | number | string
+    description: string
+    firm: string
+    tenderNo: string
+    logs?: ProgressLogUncheckedCreateNestedManyWithoutJobInput
+  }
+
+  export type JobCreateOrConnectWithoutSupervisorInput = {
+    where: JobWhereUniqueInput
+    create: XOR<JobCreateWithoutSupervisorInput, JobUncheckedCreateWithoutSupervisorInput>
+  }
+
+  export type JobCreateManySupervisorInputEnvelope = {
+    data: JobCreateManySupervisorInput | JobCreateManySupervisorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type JobCreateWithoutTechnicianInput = {
+    id?: string
+    status?: $Enums.JobStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    notes?: string | null
+    contract: Decimal | DecimalJsLike | number | string
+    description: string
+    firm: string
+    tenderNo: string
+    creator?: UserCreateNestedOneWithoutCreatedJobsInput
+    supervisor?: UserCreateNestedOneWithoutSupervisedJobsInput
+    logs?: ProgressLogCreateNestedManyWithoutJobInput
+  }
+
+  export type JobUncheckedCreateWithoutTechnicianInput = {
+    id?: string
+    status?: $Enums.JobStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    supervisorId?: string | null
+    creatorId?: string | null
+    notes?: string | null
+    contract: Decimal | DecimalJsLike | number | string
+    description: string
+    firm: string
+    tenderNo: string
+    logs?: ProgressLogUncheckedCreateNestedManyWithoutJobInput
+  }
+
+  export type JobCreateOrConnectWithoutTechnicianInput = {
+    where: JobWhereUniqueInput
+    create: XOR<JobCreateWithoutTechnicianInput, JobUncheckedCreateWithoutTechnicianInput>
+  }
+
+  export type JobCreateManyTechnicianInputEnvelope = {
+    data: JobCreateManyTechnicianInput | JobCreateManyTechnicianInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ProgressLogCreateWithoutUserInput = {
     id?: string
     message: string
@@ -6154,124 +6340,70 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type JobCreateWithoutTechnicianInput = {
-    id?: string
-    tenderNo: string
-    firm: string
-    contract: Decimal | DecimalJsLike | number | string
-    description: string
-    status?: $Enums.JobStatus
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    notes?: string | null
-    supervisor?: UserCreateNestedOneWithoutSupervisedJobsInput
-    creator?: UserCreateNestedOneWithoutCreatedJobsInput
-    logs?: ProgressLogCreateNestedManyWithoutJobInput
-  }
-
-  export type JobUncheckedCreateWithoutTechnicianInput = {
-    id?: string
-    tenderNo: string
-    firm: string
-    contract: Decimal | DecimalJsLike | number | string
-    description: string
-    status?: $Enums.JobStatus
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    supervisorId?: string | null
-    creatorId?: string | null
-    notes?: string | null
-    logs?: ProgressLogUncheckedCreateNestedManyWithoutJobInput
-  }
-
-  export type JobCreateOrConnectWithoutTechnicianInput = {
+  export type JobUpsertWithWhereUniqueWithoutCreatorInput = {
     where: JobWhereUniqueInput
-    create: XOR<JobCreateWithoutTechnicianInput, JobUncheckedCreateWithoutTechnicianInput>
-  }
-
-  export type JobCreateManyTechnicianInputEnvelope = {
-    data: JobCreateManyTechnicianInput | JobCreateManyTechnicianInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type JobCreateWithoutSupervisorInput = {
-    id?: string
-    tenderNo: string
-    firm: string
-    contract: Decimal | DecimalJsLike | number | string
-    description: string
-    status?: $Enums.JobStatus
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    notes?: string | null
-    technician?: UserCreateNestedOneWithoutAssignedJobsInput
-    creator?: UserCreateNestedOneWithoutCreatedJobsInput
-    logs?: ProgressLogCreateNestedManyWithoutJobInput
-  }
-
-  export type JobUncheckedCreateWithoutSupervisorInput = {
-    id?: string
-    tenderNo: string
-    firm: string
-    contract: Decimal | DecimalJsLike | number | string
-    description: string
-    status?: $Enums.JobStatus
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    technicianId?: string | null
-    creatorId?: string | null
-    notes?: string | null
-    logs?: ProgressLogUncheckedCreateNestedManyWithoutJobInput
-  }
-
-  export type JobCreateOrConnectWithoutSupervisorInput = {
-    where: JobWhereUniqueInput
-    create: XOR<JobCreateWithoutSupervisorInput, JobUncheckedCreateWithoutSupervisorInput>
-  }
-
-  export type JobCreateManySupervisorInputEnvelope = {
-    data: JobCreateManySupervisorInput | JobCreateManySupervisorInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type JobCreateWithoutCreatorInput = {
-    id?: string
-    tenderNo: string
-    firm: string
-    contract: Decimal | DecimalJsLike | number | string
-    description: string
-    status?: $Enums.JobStatus
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    notes?: string | null
-    technician?: UserCreateNestedOneWithoutAssignedJobsInput
-    supervisor?: UserCreateNestedOneWithoutSupervisedJobsInput
-    logs?: ProgressLogCreateNestedManyWithoutJobInput
-  }
-
-  export type JobUncheckedCreateWithoutCreatorInput = {
-    id?: string
-    tenderNo: string
-    firm: string
-    contract: Decimal | DecimalJsLike | number | string
-    description: string
-    status?: $Enums.JobStatus
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    technicianId?: string | null
-    supervisorId?: string | null
-    notes?: string | null
-    logs?: ProgressLogUncheckedCreateNestedManyWithoutJobInput
-  }
-
-  export type JobCreateOrConnectWithoutCreatorInput = {
-    where: JobWhereUniqueInput
+    update: XOR<JobUpdateWithoutCreatorInput, JobUncheckedUpdateWithoutCreatorInput>
     create: XOR<JobCreateWithoutCreatorInput, JobUncheckedCreateWithoutCreatorInput>
   }
 
-  export type JobCreateManyCreatorInputEnvelope = {
-    data: JobCreateManyCreatorInput | JobCreateManyCreatorInput[]
-    skipDuplicates?: boolean
+  export type JobUpdateWithWhereUniqueWithoutCreatorInput = {
+    where: JobWhereUniqueInput
+    data: XOR<JobUpdateWithoutCreatorInput, JobUncheckedUpdateWithoutCreatorInput>
+  }
+
+  export type JobUpdateManyWithWhereWithoutCreatorInput = {
+    where: JobScalarWhereInput
+    data: XOR<JobUpdateManyMutationInput, JobUncheckedUpdateManyWithoutCreatorInput>
+  }
+
+  export type JobScalarWhereInput = {
+    AND?: JobScalarWhereInput | JobScalarWhereInput[]
+    OR?: JobScalarWhereInput[]
+    NOT?: JobScalarWhereInput | JobScalarWhereInput[]
+    id?: StringFilter<"Job"> | string
+    status?: EnumJobStatusFilter<"Job"> | $Enums.JobStatus
+    createdAt?: DateTimeFilter<"Job"> | Date | string
+    updatedAt?: DateTimeFilter<"Job"> | Date | string
+    technicianId?: StringNullableFilter<"Job"> | string | null
+    supervisorId?: StringNullableFilter<"Job"> | string | null
+    creatorId?: StringNullableFilter<"Job"> | string | null
+    notes?: StringNullableFilter<"Job"> | string | null
+    contract?: DecimalFilter<"Job"> | Decimal | DecimalJsLike | number | string
+    description?: StringFilter<"Job"> | string
+    firm?: StringFilter<"Job"> | string
+    tenderNo?: StringFilter<"Job"> | string
+  }
+
+  export type JobUpsertWithWhereUniqueWithoutSupervisorInput = {
+    where: JobWhereUniqueInput
+    update: XOR<JobUpdateWithoutSupervisorInput, JobUncheckedUpdateWithoutSupervisorInput>
+    create: XOR<JobCreateWithoutSupervisorInput, JobUncheckedCreateWithoutSupervisorInput>
+  }
+
+  export type JobUpdateWithWhereUniqueWithoutSupervisorInput = {
+    where: JobWhereUniqueInput
+    data: XOR<JobUpdateWithoutSupervisorInput, JobUncheckedUpdateWithoutSupervisorInput>
+  }
+
+  export type JobUpdateManyWithWhereWithoutSupervisorInput = {
+    where: JobScalarWhereInput
+    data: XOR<JobUpdateManyMutationInput, JobUncheckedUpdateManyWithoutSupervisorInput>
+  }
+
+  export type JobUpsertWithWhereUniqueWithoutTechnicianInput = {
+    where: JobWhereUniqueInput
+    update: XOR<JobUpdateWithoutTechnicianInput, JobUncheckedUpdateWithoutTechnicianInput>
+    create: XOR<JobCreateWithoutTechnicianInput, JobUncheckedCreateWithoutTechnicianInput>
+  }
+
+  export type JobUpdateWithWhereUniqueWithoutTechnicianInput = {
+    where: JobWhereUniqueInput
+    data: XOR<JobUpdateWithoutTechnicianInput, JobUncheckedUpdateWithoutTechnicianInput>
+  }
+
+  export type JobUpdateManyWithWhereWithoutTechnicianInput = {
+    where: JobScalarWhereInput
+    data: XOR<JobUpdateManyMutationInput, JobUncheckedUpdateManyWithoutTechnicianInput>
   }
 
   export type ProgressLogUpsertWithWhereUniqueWithoutUserInput = {
@@ -6301,134 +6433,6 @@ export namespace Prisma {
     userId?: StringFilter<"ProgressLog"> | string
   }
 
-  export type JobUpsertWithWhereUniqueWithoutTechnicianInput = {
-    where: JobWhereUniqueInput
-    update: XOR<JobUpdateWithoutTechnicianInput, JobUncheckedUpdateWithoutTechnicianInput>
-    create: XOR<JobCreateWithoutTechnicianInput, JobUncheckedCreateWithoutTechnicianInput>
-  }
-
-  export type JobUpdateWithWhereUniqueWithoutTechnicianInput = {
-    where: JobWhereUniqueInput
-    data: XOR<JobUpdateWithoutTechnicianInput, JobUncheckedUpdateWithoutTechnicianInput>
-  }
-
-  export type JobUpdateManyWithWhereWithoutTechnicianInput = {
-    where: JobScalarWhereInput
-    data: XOR<JobUpdateManyMutationInput, JobUncheckedUpdateManyWithoutTechnicianInput>
-  }
-
-  export type JobScalarWhereInput = {
-    AND?: JobScalarWhereInput | JobScalarWhereInput[]
-    OR?: JobScalarWhereInput[]
-    NOT?: JobScalarWhereInput | JobScalarWhereInput[]
-    id?: StringFilter<"Job"> | string
-    tenderNo?: StringFilter<"Job"> | string
-    firm?: StringFilter<"Job"> | string
-    contract?: DecimalFilter<"Job"> | Decimal | DecimalJsLike | number | string
-    description?: StringFilter<"Job"> | string
-    status?: EnumJobStatusFilter<"Job"> | $Enums.JobStatus
-    createdAt?: DateTimeFilter<"Job"> | Date | string
-    updatedAt?: DateTimeFilter<"Job"> | Date | string
-    technicianId?: StringNullableFilter<"Job"> | string | null
-    supervisorId?: StringNullableFilter<"Job"> | string | null
-    creatorId?: StringNullableFilter<"Job"> | string | null
-    notes?: StringNullableFilter<"Job"> | string | null
-  }
-
-  export type JobUpsertWithWhereUniqueWithoutSupervisorInput = {
-    where: JobWhereUniqueInput
-    update: XOR<JobUpdateWithoutSupervisorInput, JobUncheckedUpdateWithoutSupervisorInput>
-    create: XOR<JobCreateWithoutSupervisorInput, JobUncheckedCreateWithoutSupervisorInput>
-  }
-
-  export type JobUpdateWithWhereUniqueWithoutSupervisorInput = {
-    where: JobWhereUniqueInput
-    data: XOR<JobUpdateWithoutSupervisorInput, JobUncheckedUpdateWithoutSupervisorInput>
-  }
-
-  export type JobUpdateManyWithWhereWithoutSupervisorInput = {
-    where: JobScalarWhereInput
-    data: XOR<JobUpdateManyMutationInput, JobUncheckedUpdateManyWithoutSupervisorInput>
-  }
-
-  export type JobUpsertWithWhereUniqueWithoutCreatorInput = {
-    where: JobWhereUniqueInput
-    update: XOR<JobUpdateWithoutCreatorInput, JobUncheckedUpdateWithoutCreatorInput>
-    create: XOR<JobCreateWithoutCreatorInput, JobUncheckedCreateWithoutCreatorInput>
-  }
-
-  export type JobUpdateWithWhereUniqueWithoutCreatorInput = {
-    where: JobWhereUniqueInput
-    data: XOR<JobUpdateWithoutCreatorInput, JobUncheckedUpdateWithoutCreatorInput>
-  }
-
-  export type JobUpdateManyWithWhereWithoutCreatorInput = {
-    where: JobScalarWhereInput
-    data: XOR<JobUpdateManyMutationInput, JobUncheckedUpdateManyWithoutCreatorInput>
-  }
-
-  export type UserCreateWithoutAssignedJobsInput = {
-    id?: string
-    clerkId: string
-    firstName: string
-    lastName: string
-    email: string
-    role?: $Enums.Role
-    createdAt?: Date | string
-    logs?: ProgressLogCreateNestedManyWithoutUserInput
-    supervisedJobs?: JobCreateNestedManyWithoutSupervisorInput
-    createdJobs?: JobCreateNestedManyWithoutCreatorInput
-  }
-
-  export type UserUncheckedCreateWithoutAssignedJobsInput = {
-    id?: string
-    clerkId: string
-    firstName: string
-    lastName: string
-    email: string
-    role?: $Enums.Role
-    createdAt?: Date | string
-    logs?: ProgressLogUncheckedCreateNestedManyWithoutUserInput
-    supervisedJobs?: JobUncheckedCreateNestedManyWithoutSupervisorInput
-    createdJobs?: JobUncheckedCreateNestedManyWithoutCreatorInput
-  }
-
-  export type UserCreateOrConnectWithoutAssignedJobsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutAssignedJobsInput, UserUncheckedCreateWithoutAssignedJobsInput>
-  }
-
-  export type UserCreateWithoutSupervisedJobsInput = {
-    id?: string
-    clerkId: string
-    firstName: string
-    lastName: string
-    email: string
-    role?: $Enums.Role
-    createdAt?: Date | string
-    logs?: ProgressLogCreateNestedManyWithoutUserInput
-    assignedJobs?: JobCreateNestedManyWithoutTechnicianInput
-    createdJobs?: JobCreateNestedManyWithoutCreatorInput
-  }
-
-  export type UserUncheckedCreateWithoutSupervisedJobsInput = {
-    id?: string
-    clerkId: string
-    firstName: string
-    lastName: string
-    email: string
-    role?: $Enums.Role
-    createdAt?: Date | string
-    logs?: ProgressLogUncheckedCreateNestedManyWithoutUserInput
-    assignedJobs?: JobUncheckedCreateNestedManyWithoutTechnicianInput
-    createdJobs?: JobUncheckedCreateNestedManyWithoutCreatorInput
-  }
-
-  export type UserCreateOrConnectWithoutSupervisedJobsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutSupervisedJobsInput, UserUncheckedCreateWithoutSupervisedJobsInput>
-  }
-
   export type UserCreateWithoutCreatedJobsInput = {
     id?: string
     clerkId: string
@@ -6437,9 +6441,10 @@ export namespace Prisma {
     email: string
     role?: $Enums.Role
     createdAt?: Date | string
-    logs?: ProgressLogCreateNestedManyWithoutUserInput
-    assignedJobs?: JobCreateNestedManyWithoutTechnicianInput
+    onboardingCompleted?: boolean
     supervisedJobs?: JobCreateNestedManyWithoutSupervisorInput
+    assignedJobs?: JobCreateNestedManyWithoutTechnicianInput
+    logs?: ProgressLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCreatedJobsInput = {
@@ -6450,14 +6455,81 @@ export namespace Prisma {
     email: string
     role?: $Enums.Role
     createdAt?: Date | string
-    logs?: ProgressLogUncheckedCreateNestedManyWithoutUserInput
-    assignedJobs?: JobUncheckedCreateNestedManyWithoutTechnicianInput
+    onboardingCompleted?: boolean
     supervisedJobs?: JobUncheckedCreateNestedManyWithoutSupervisorInput
+    assignedJobs?: JobUncheckedCreateNestedManyWithoutTechnicianInput
+    logs?: ProgressLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCreatedJobsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutCreatedJobsInput, UserUncheckedCreateWithoutCreatedJobsInput>
+  }
+
+  export type UserCreateWithoutSupervisedJobsInput = {
+    id?: string
+    clerkId: string
+    firstName: string
+    lastName: string
+    email: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    onboardingCompleted?: boolean
+    createdJobs?: JobCreateNestedManyWithoutCreatorInput
+    assignedJobs?: JobCreateNestedManyWithoutTechnicianInput
+    logs?: ProgressLogCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutSupervisedJobsInput = {
+    id?: string
+    clerkId: string
+    firstName: string
+    lastName: string
+    email: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    onboardingCompleted?: boolean
+    createdJobs?: JobUncheckedCreateNestedManyWithoutCreatorInput
+    assignedJobs?: JobUncheckedCreateNestedManyWithoutTechnicianInput
+    logs?: ProgressLogUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutSupervisedJobsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSupervisedJobsInput, UserUncheckedCreateWithoutSupervisedJobsInput>
+  }
+
+  export type UserCreateWithoutAssignedJobsInput = {
+    id?: string
+    clerkId: string
+    firstName: string
+    lastName: string
+    email: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    onboardingCompleted?: boolean
+    createdJobs?: JobCreateNestedManyWithoutCreatorInput
+    supervisedJobs?: JobCreateNestedManyWithoutSupervisorInput
+    logs?: ProgressLogCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutAssignedJobsInput = {
+    id?: string
+    clerkId: string
+    firstName: string
+    lastName: string
+    email: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    onboardingCompleted?: boolean
+    createdJobs?: JobUncheckedCreateNestedManyWithoutCreatorInput
+    supervisedJobs?: JobUncheckedCreateNestedManyWithoutSupervisorInput
+    logs?: ProgressLogUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAssignedJobsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAssignedJobsInput, UserUncheckedCreateWithoutAssignedJobsInput>
   }
 
   export type ProgressLogCreateWithoutJobInput = {
@@ -6484,18 +6556,18 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UserUpsertWithoutAssignedJobsInput = {
-    update: XOR<UserUpdateWithoutAssignedJobsInput, UserUncheckedUpdateWithoutAssignedJobsInput>
-    create: XOR<UserCreateWithoutAssignedJobsInput, UserUncheckedCreateWithoutAssignedJobsInput>
+  export type UserUpsertWithoutCreatedJobsInput = {
+    update: XOR<UserUpdateWithoutCreatedJobsInput, UserUncheckedUpdateWithoutCreatedJobsInput>
+    create: XOR<UserCreateWithoutCreatedJobsInput, UserUncheckedCreateWithoutCreatedJobsInput>
     where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutAssignedJobsInput = {
+  export type UserUpdateToOneWithWhereWithoutCreatedJobsInput = {
     where?: UserWhereInput
-    data: XOR<UserUpdateWithoutAssignedJobsInput, UserUncheckedUpdateWithoutAssignedJobsInput>
+    data: XOR<UserUpdateWithoutCreatedJobsInput, UserUncheckedUpdateWithoutCreatedJobsInput>
   }
 
-  export type UserUpdateWithoutAssignedJobsInput = {
+  export type UserUpdateWithoutCreatedJobsInput = {
     id?: StringFieldUpdateOperationsInput | string
     clerkId?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
@@ -6503,12 +6575,13 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    logs?: ProgressLogUpdateManyWithoutUserNestedInput
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     supervisedJobs?: JobUpdateManyWithoutSupervisorNestedInput
-    createdJobs?: JobUpdateManyWithoutCreatorNestedInput
+    assignedJobs?: JobUpdateManyWithoutTechnicianNestedInput
+    logs?: ProgressLogUpdateManyWithoutUserNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutAssignedJobsInput = {
+  export type UserUncheckedUpdateWithoutCreatedJobsInput = {
     id?: StringFieldUpdateOperationsInput | string
     clerkId?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
@@ -6516,9 +6589,10 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    logs?: ProgressLogUncheckedUpdateManyWithoutUserNestedInput
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     supervisedJobs?: JobUncheckedUpdateManyWithoutSupervisorNestedInput
-    createdJobs?: JobUncheckedUpdateManyWithoutCreatorNestedInput
+    assignedJobs?: JobUncheckedUpdateManyWithoutTechnicianNestedInput
+    logs?: ProgressLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutSupervisedJobsInput = {
@@ -6540,9 +6614,10 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    logs?: ProgressLogUpdateManyWithoutUserNestedInput
-    assignedJobs?: JobUpdateManyWithoutTechnicianNestedInput
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdJobs?: JobUpdateManyWithoutCreatorNestedInput
+    assignedJobs?: JobUpdateManyWithoutTechnicianNestedInput
+    logs?: ProgressLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSupervisedJobsInput = {
@@ -6553,46 +6628,49 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    logs?: ProgressLogUncheckedUpdateManyWithoutUserNestedInput
-    assignedJobs?: JobUncheckedUpdateManyWithoutTechnicianNestedInput
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdJobs?: JobUncheckedUpdateManyWithoutCreatorNestedInput
-  }
-
-  export type UserUpsertWithoutCreatedJobsInput = {
-    update: XOR<UserUpdateWithoutCreatedJobsInput, UserUncheckedUpdateWithoutCreatedJobsInput>
-    create: XOR<UserCreateWithoutCreatedJobsInput, UserUncheckedCreateWithoutCreatedJobsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutCreatedJobsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutCreatedJobsInput, UserUncheckedUpdateWithoutCreatedJobsInput>
-  }
-
-  export type UserUpdateWithoutCreatedJobsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    clerkId?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    logs?: ProgressLogUpdateManyWithoutUserNestedInput
-    assignedJobs?: JobUpdateManyWithoutTechnicianNestedInput
-    supervisedJobs?: JobUpdateManyWithoutSupervisorNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutCreatedJobsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    clerkId?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    logs?: ProgressLogUncheckedUpdateManyWithoutUserNestedInput
     assignedJobs?: JobUncheckedUpdateManyWithoutTechnicianNestedInput
+    logs?: ProgressLogUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUpsertWithoutAssignedJobsInput = {
+    update: XOR<UserUpdateWithoutAssignedJobsInput, UserUncheckedUpdateWithoutAssignedJobsInput>
+    create: XOR<UserCreateWithoutAssignedJobsInput, UserUncheckedCreateWithoutAssignedJobsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAssignedJobsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAssignedJobsInput, UserUncheckedUpdateWithoutAssignedJobsInput>
+  }
+
+  export type UserUpdateWithoutAssignedJobsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerkId?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
+    createdJobs?: JobUpdateManyWithoutCreatorNestedInput
+    supervisedJobs?: JobUpdateManyWithoutSupervisorNestedInput
+    logs?: ProgressLogUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAssignedJobsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerkId?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
+    createdJobs?: JobUncheckedUpdateManyWithoutCreatorNestedInput
     supervisedJobs?: JobUncheckedUpdateManyWithoutSupervisorNestedInput
+    logs?: ProgressLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProgressLogUpsertWithWhereUniqueWithoutJobInput = {
@@ -6613,25 +6691,21 @@ export namespace Prisma {
 
   export type JobCreateWithoutLogsInput = {
     id?: string
-    tenderNo: string
-    firm: string
-    contract: Decimal | DecimalJsLike | number | string
-    description: string
     status?: $Enums.JobStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     notes?: string | null
-    technician?: UserCreateNestedOneWithoutAssignedJobsInput
-    supervisor?: UserCreateNestedOneWithoutSupervisedJobsInput
+    contract: Decimal | DecimalJsLike | number | string
+    description: string
+    firm: string
+    tenderNo: string
     creator?: UserCreateNestedOneWithoutCreatedJobsInput
+    supervisor?: UserCreateNestedOneWithoutSupervisedJobsInput
+    technician?: UserCreateNestedOneWithoutAssignedJobsInput
   }
 
   export type JobUncheckedCreateWithoutLogsInput = {
     id?: string
-    tenderNo: string
-    firm: string
-    contract: Decimal | DecimalJsLike | number | string
-    description: string
     status?: $Enums.JobStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -6639,6 +6713,10 @@ export namespace Prisma {
     supervisorId?: string | null
     creatorId?: string | null
     notes?: string | null
+    contract: Decimal | DecimalJsLike | number | string
+    description: string
+    firm: string
+    tenderNo: string
   }
 
   export type JobCreateOrConnectWithoutLogsInput = {
@@ -6654,9 +6732,10 @@ export namespace Prisma {
     email: string
     role?: $Enums.Role
     createdAt?: Date | string
-    assignedJobs?: JobCreateNestedManyWithoutTechnicianInput
-    supervisedJobs?: JobCreateNestedManyWithoutSupervisorInput
+    onboardingCompleted?: boolean
     createdJobs?: JobCreateNestedManyWithoutCreatorInput
+    supervisedJobs?: JobCreateNestedManyWithoutSupervisorInput
+    assignedJobs?: JobCreateNestedManyWithoutTechnicianInput
   }
 
   export type UserUncheckedCreateWithoutLogsInput = {
@@ -6667,9 +6746,10 @@ export namespace Prisma {
     email: string
     role?: $Enums.Role
     createdAt?: Date | string
-    assignedJobs?: JobUncheckedCreateNestedManyWithoutTechnicianInput
-    supervisedJobs?: JobUncheckedCreateNestedManyWithoutSupervisorInput
+    onboardingCompleted?: boolean
     createdJobs?: JobUncheckedCreateNestedManyWithoutCreatorInput
+    supervisedJobs?: JobUncheckedCreateNestedManyWithoutSupervisorInput
+    assignedJobs?: JobUncheckedCreateNestedManyWithoutTechnicianInput
   }
 
   export type UserCreateOrConnectWithoutLogsInput = {
@@ -6690,25 +6770,21 @@ export namespace Prisma {
 
   export type JobUpdateWithoutLogsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tenderNo?: StringFieldUpdateOperationsInput | string
-    firm?: StringFieldUpdateOperationsInput | string
-    contract?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    description?: StringFieldUpdateOperationsInput | string
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    technician?: UserUpdateOneWithoutAssignedJobsNestedInput
-    supervisor?: UserUpdateOneWithoutSupervisedJobsNestedInput
+    contract?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    firm?: StringFieldUpdateOperationsInput | string
+    tenderNo?: StringFieldUpdateOperationsInput | string
     creator?: UserUpdateOneWithoutCreatedJobsNestedInput
+    supervisor?: UserUpdateOneWithoutSupervisedJobsNestedInput
+    technician?: UserUpdateOneWithoutAssignedJobsNestedInput
   }
 
   export type JobUncheckedUpdateWithoutLogsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tenderNo?: StringFieldUpdateOperationsInput | string
-    firm?: StringFieldUpdateOperationsInput | string
-    contract?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    description?: StringFieldUpdateOperationsInput | string
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6716,6 +6792,10 @@ export namespace Prisma {
     supervisorId?: NullableStringFieldUpdateOperationsInput | string | null
     creatorId?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    contract?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    firm?: StringFieldUpdateOperationsInput | string
+    tenderNo?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserUpsertWithoutLogsInput = {
@@ -6737,9 +6817,10 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    assignedJobs?: JobUpdateManyWithoutTechnicianNestedInput
-    supervisedJobs?: JobUpdateManyWithoutSupervisorNestedInput
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdJobs?: JobUpdateManyWithoutCreatorNestedInput
+    supervisedJobs?: JobUpdateManyWithoutSupervisorNestedInput
+    assignedJobs?: JobUpdateManyWithoutTechnicianNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLogsInput = {
@@ -6750,9 +6831,52 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    assignedJobs?: JobUncheckedUpdateManyWithoutTechnicianNestedInput
-    supervisedJobs?: JobUncheckedUpdateManyWithoutSupervisorNestedInput
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdJobs?: JobUncheckedUpdateManyWithoutCreatorNestedInput
+    supervisedJobs?: JobUncheckedUpdateManyWithoutSupervisorNestedInput
+    assignedJobs?: JobUncheckedUpdateManyWithoutTechnicianNestedInput
+  }
+
+  export type JobCreateManyCreatorInput = {
+    id?: string
+    status?: $Enums.JobStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    technicianId?: string | null
+    supervisorId?: string | null
+    notes?: string | null
+    contract: Decimal | DecimalJsLike | number | string
+    description: string
+    firm: string
+    tenderNo: string
+  }
+
+  export type JobCreateManySupervisorInput = {
+    id?: string
+    status?: $Enums.JobStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    technicianId?: string | null
+    creatorId?: string | null
+    notes?: string | null
+    contract: Decimal | DecimalJsLike | number | string
+    description: string
+    firm: string
+    tenderNo: string
+  }
+
+  export type JobCreateManyTechnicianInput = {
+    id?: string
+    status?: $Enums.JobStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    supervisorId?: string | null
+    creatorId?: string | null
+    notes?: string | null
+    contract: Decimal | DecimalJsLike | number | string
+    description: string
+    firm: string
+    tenderNo: string
   }
 
   export type ProgressLogCreateManyUserInput = {
@@ -6762,46 +6886,136 @@ export namespace Prisma {
     jobId: string
   }
 
-  export type JobCreateManyTechnicianInput = {
-    id?: string
-    tenderNo: string
-    firm: string
-    contract: Decimal | DecimalJsLike | number | string
-    description: string
-    status?: $Enums.JobStatus
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    supervisorId?: string | null
-    creatorId?: string | null
-    notes?: string | null
+  export type JobUpdateWithoutCreatorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    contract?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    firm?: StringFieldUpdateOperationsInput | string
+    tenderNo?: StringFieldUpdateOperationsInput | string
+    supervisor?: UserUpdateOneWithoutSupervisedJobsNestedInput
+    technician?: UserUpdateOneWithoutAssignedJobsNestedInput
+    logs?: ProgressLogUpdateManyWithoutJobNestedInput
   }
 
-  export type JobCreateManySupervisorInput = {
-    id?: string
-    tenderNo: string
-    firm: string
-    contract: Decimal | DecimalJsLike | number | string
-    description: string
-    status?: $Enums.JobStatus
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    technicianId?: string | null
-    creatorId?: string | null
-    notes?: string | null
+  export type JobUncheckedUpdateWithoutCreatorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    technicianId?: NullableStringFieldUpdateOperationsInput | string | null
+    supervisorId?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    contract?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    firm?: StringFieldUpdateOperationsInput | string
+    tenderNo?: StringFieldUpdateOperationsInput | string
+    logs?: ProgressLogUncheckedUpdateManyWithoutJobNestedInput
   }
 
-  export type JobCreateManyCreatorInput = {
-    id?: string
-    tenderNo: string
-    firm: string
-    contract: Decimal | DecimalJsLike | number | string
-    description: string
-    status?: $Enums.JobStatus
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    technicianId?: string | null
-    supervisorId?: string | null
-    notes?: string | null
+  export type JobUncheckedUpdateManyWithoutCreatorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    technicianId?: NullableStringFieldUpdateOperationsInput | string | null
+    supervisorId?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    contract?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    firm?: StringFieldUpdateOperationsInput | string
+    tenderNo?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type JobUpdateWithoutSupervisorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    contract?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    firm?: StringFieldUpdateOperationsInput | string
+    tenderNo?: StringFieldUpdateOperationsInput | string
+    creator?: UserUpdateOneWithoutCreatedJobsNestedInput
+    technician?: UserUpdateOneWithoutAssignedJobsNestedInput
+    logs?: ProgressLogUpdateManyWithoutJobNestedInput
+  }
+
+  export type JobUncheckedUpdateWithoutSupervisorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    technicianId?: NullableStringFieldUpdateOperationsInput | string | null
+    creatorId?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    contract?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    firm?: StringFieldUpdateOperationsInput | string
+    tenderNo?: StringFieldUpdateOperationsInput | string
+    logs?: ProgressLogUncheckedUpdateManyWithoutJobNestedInput
+  }
+
+  export type JobUncheckedUpdateManyWithoutSupervisorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    technicianId?: NullableStringFieldUpdateOperationsInput | string | null
+    creatorId?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    contract?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    firm?: StringFieldUpdateOperationsInput | string
+    tenderNo?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type JobUpdateWithoutTechnicianInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    contract?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    firm?: StringFieldUpdateOperationsInput | string
+    tenderNo?: StringFieldUpdateOperationsInput | string
+    creator?: UserUpdateOneWithoutCreatedJobsNestedInput
+    supervisor?: UserUpdateOneWithoutSupervisedJobsNestedInput
+    logs?: ProgressLogUpdateManyWithoutJobNestedInput
+  }
+
+  export type JobUncheckedUpdateWithoutTechnicianInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    supervisorId?: NullableStringFieldUpdateOperationsInput | string | null
+    creatorId?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    contract?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    firm?: StringFieldUpdateOperationsInput | string
+    tenderNo?: StringFieldUpdateOperationsInput | string
+    logs?: ProgressLogUncheckedUpdateManyWithoutJobNestedInput
+  }
+
+  export type JobUncheckedUpdateManyWithoutTechnicianInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    supervisorId?: NullableStringFieldUpdateOperationsInput | string | null
+    creatorId?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    contract?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    firm?: StringFieldUpdateOperationsInput | string
+    tenderNo?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProgressLogUpdateWithoutUserInput = {
@@ -6823,138 +7037,6 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     jobId?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type JobUpdateWithoutTechnicianInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    tenderNo?: StringFieldUpdateOperationsInput | string
-    firm?: StringFieldUpdateOperationsInput | string
-    contract?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    description?: StringFieldUpdateOperationsInput | string
-    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    supervisor?: UserUpdateOneWithoutSupervisedJobsNestedInput
-    creator?: UserUpdateOneWithoutCreatedJobsNestedInput
-    logs?: ProgressLogUpdateManyWithoutJobNestedInput
-  }
-
-  export type JobUncheckedUpdateWithoutTechnicianInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    tenderNo?: StringFieldUpdateOperationsInput | string
-    firm?: StringFieldUpdateOperationsInput | string
-    contract?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    description?: StringFieldUpdateOperationsInput | string
-    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    supervisorId?: NullableStringFieldUpdateOperationsInput | string | null
-    creatorId?: NullableStringFieldUpdateOperationsInput | string | null
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    logs?: ProgressLogUncheckedUpdateManyWithoutJobNestedInput
-  }
-
-  export type JobUncheckedUpdateManyWithoutTechnicianInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    tenderNo?: StringFieldUpdateOperationsInput | string
-    firm?: StringFieldUpdateOperationsInput | string
-    contract?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    description?: StringFieldUpdateOperationsInput | string
-    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    supervisorId?: NullableStringFieldUpdateOperationsInput | string | null
-    creatorId?: NullableStringFieldUpdateOperationsInput | string | null
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type JobUpdateWithoutSupervisorInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    tenderNo?: StringFieldUpdateOperationsInput | string
-    firm?: StringFieldUpdateOperationsInput | string
-    contract?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    description?: StringFieldUpdateOperationsInput | string
-    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    technician?: UserUpdateOneWithoutAssignedJobsNestedInput
-    creator?: UserUpdateOneWithoutCreatedJobsNestedInput
-    logs?: ProgressLogUpdateManyWithoutJobNestedInput
-  }
-
-  export type JobUncheckedUpdateWithoutSupervisorInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    tenderNo?: StringFieldUpdateOperationsInput | string
-    firm?: StringFieldUpdateOperationsInput | string
-    contract?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    description?: StringFieldUpdateOperationsInput | string
-    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    technicianId?: NullableStringFieldUpdateOperationsInput | string | null
-    creatorId?: NullableStringFieldUpdateOperationsInput | string | null
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    logs?: ProgressLogUncheckedUpdateManyWithoutJobNestedInput
-  }
-
-  export type JobUncheckedUpdateManyWithoutSupervisorInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    tenderNo?: StringFieldUpdateOperationsInput | string
-    firm?: StringFieldUpdateOperationsInput | string
-    contract?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    description?: StringFieldUpdateOperationsInput | string
-    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    technicianId?: NullableStringFieldUpdateOperationsInput | string | null
-    creatorId?: NullableStringFieldUpdateOperationsInput | string | null
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type JobUpdateWithoutCreatorInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    tenderNo?: StringFieldUpdateOperationsInput | string
-    firm?: StringFieldUpdateOperationsInput | string
-    contract?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    description?: StringFieldUpdateOperationsInput | string
-    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    technician?: UserUpdateOneWithoutAssignedJobsNestedInput
-    supervisor?: UserUpdateOneWithoutSupervisedJobsNestedInput
-    logs?: ProgressLogUpdateManyWithoutJobNestedInput
-  }
-
-  export type JobUncheckedUpdateWithoutCreatorInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    tenderNo?: StringFieldUpdateOperationsInput | string
-    firm?: StringFieldUpdateOperationsInput | string
-    contract?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    description?: StringFieldUpdateOperationsInput | string
-    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    technicianId?: NullableStringFieldUpdateOperationsInput | string | null
-    supervisorId?: NullableStringFieldUpdateOperationsInput | string | null
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    logs?: ProgressLogUncheckedUpdateManyWithoutJobNestedInput
-  }
-
-  export type JobUncheckedUpdateManyWithoutCreatorInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    tenderNo?: StringFieldUpdateOperationsInput | string
-    firm?: StringFieldUpdateOperationsInput | string
-    contract?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    description?: StringFieldUpdateOperationsInput | string
-    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    technicianId?: NullableStringFieldUpdateOperationsInput | string | null
-    supervisorId?: NullableStringFieldUpdateOperationsInput | string | null
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ProgressLogCreateManyJobInput = {

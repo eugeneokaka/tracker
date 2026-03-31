@@ -128,22 +128,23 @@ exports.Prisma.UserScalarFieldEnum = {
   lastName: 'lastName',
   email: 'email',
   role: 'role',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  onboardingCompleted: 'onboardingCompleted'
 };
 
 exports.Prisma.JobScalarFieldEnum = {
   id: 'id',
-  tenderNo: 'tenderNo',
-  firm: 'firm',
-  contract: 'contract',
-  description: 'description',
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   technicianId: 'technicianId',
   supervisorId: 'supervisorId',
   creatorId: 'creatorId',
-  notes: 'notes'
+  notes: 'notes',
+  contract: 'contract',
+  description: 'description',
+  firm: 'firm',
+  tenderNo: 'tenderNo'
 };
 
 exports.Prisma.ProgressLogScalarFieldEnum = {

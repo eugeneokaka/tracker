@@ -83,6 +83,10 @@ export async function POST(req: Request) {
       return new NextResponse('User not found in database. Please log in again.', { status: 404 });
     }
 
+    if (!user.onboardingCompleted) {
+      return new NextResponse('Please complete onboarding before creating jobs.', { status: 403 });
+    }
+
     const body = await req.json();
     const { tenderNo, firm, contract, description, notes, technicianId, supervisorId } = body;
 

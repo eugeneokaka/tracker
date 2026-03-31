@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
+import OnboardingRequired from '@/components/OnboardingRequired';
 
 type UserListOption = {
   id: string;
@@ -18,12 +20,11 @@ export default function CreateJobForm({
 }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [showOnboardingRequired, setShowOnboardingRequired] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
-    setError('');
 
     const formData = new FormData(e.currentTarget);
     const data = {
@@ -44,25 +45,35 @@ export default function CreateJobForm({
       });
 
       if (!res.ok) {
+        if (res.status === 404) {
+          setShowOnboardingRequired(true);
+          return;
+        }
+        if (res.status === 403) {
+          toast.error('Please complete onboarding before creating jobs. Redirecting to onboarding...', {
+            duration: 2000,
+          });
+          router.push('/onboarding');
+          return;
+        }
         throw new Error('Failed to create job');
       }
 
+      toast.success('Job created successfully!');
       router.push('/');
       router.refresh();
     } catch (err) {
       console.error(err);
-      setError('An error occurred while creating the job. Please try again.');
+      toast.error('An error occurred while creating the job. Please try again.');
+    } finally {
       setLoading(false);
     }
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      {error && (
-        <div className="bg-red-50 text-red-600 text-sm p-3 rounded-md border border-red-200">
-          {error}
-        </div>
-      )}
+    <>
+      {showOnboardingRequired && <OnboardingRequired />}
+      <form onSubmit={handleSubmit} className="space-y-6">
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
@@ -192,5 +203,6 @@ export default function CreateJobForm({
         </button>
       </div>
     </form>
+    </>
   );
 }

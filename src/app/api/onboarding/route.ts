@@ -41,6 +41,7 @@ export async function POST(req: Request) {
         email,
         firstName,
         lastName,
+        onboardingCompleted: true,
       },
     });
 
