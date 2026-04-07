@@ -88,7 +88,7 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json();
-    const { tenderNo, title, firm, contract, startDate, endDate, description, notes, technicianId, supervisorId } = body;
+    const { tenderNo, title, firm, contract, startDate, endDate, scopeOfWork, description, notes, technicianId, supervisorId } = body;
 
     const job = await prisma.job.create({
       data: {
@@ -98,6 +98,7 @@ export async function POST(req: Request) {
         contract,
         startDate: startDate ? new Date(startDate) : null,
         endDate: endDate ? new Date(endDate) : null,
+        scopeOfWork,
         description,
         notes,
         status: 'PENDING',

@@ -2536,6 +2536,7 @@ export namespace Prisma {
     updatedAt: Date | null
     title: string | null
     percentageCompleted: number | null
+    scopeOfWork: string | null
     startDate: Date | null
     endDate: Date | null
     technicianId: string | null
@@ -2555,6 +2556,7 @@ export namespace Prisma {
     updatedAt: Date | null
     title: string | null
     percentageCompleted: number | null
+    scopeOfWork: string | null
     startDate: Date | null
     endDate: Date | null
     technicianId: string | null
@@ -2574,6 +2576,7 @@ export namespace Prisma {
     updatedAt: number
     title: number
     percentageCompleted: number
+    scopeOfWork: number
     startDate: number
     endDate: number
     technicianId: number
@@ -2605,6 +2608,7 @@ export namespace Prisma {
     updatedAt?: true
     title?: true
     percentageCompleted?: true
+    scopeOfWork?: true
     startDate?: true
     endDate?: true
     technicianId?: true
@@ -2624,6 +2628,7 @@ export namespace Prisma {
     updatedAt?: true
     title?: true
     percentageCompleted?: true
+    scopeOfWork?: true
     startDate?: true
     endDate?: true
     technicianId?: true
@@ -2643,6 +2648,7 @@ export namespace Prisma {
     updatedAt?: true
     title?: true
     percentageCompleted?: true
+    scopeOfWork?: true
     startDate?: true
     endDate?: true
     technicianId?: true
@@ -2749,6 +2755,7 @@ export namespace Prisma {
     updatedAt: Date
     title: string | null
     percentageCompleted: number
+    scopeOfWork: string | null
     startDate: Date | null
     endDate: Date | null
     technicianId: string | null
@@ -2787,6 +2794,7 @@ export namespace Prisma {
     updatedAt?: boolean
     title?: boolean
     percentageCompleted?: boolean
+    scopeOfWork?: boolean
     startDate?: boolean
     endDate?: boolean
     technicianId?: boolean
@@ -2812,6 +2820,7 @@ export namespace Prisma {
     updatedAt?: boolean
     title?: boolean
     percentageCompleted?: boolean
+    scopeOfWork?: boolean
     startDate?: boolean
     endDate?: boolean
     technicianId?: boolean
@@ -2834,6 +2843,7 @@ export namespace Prisma {
     updatedAt?: boolean
     title?: boolean
     percentageCompleted?: boolean
+    scopeOfWork?: boolean
     startDate?: boolean
     endDate?: boolean
     technicianId?: boolean
@@ -2856,6 +2866,7 @@ export namespace Prisma {
     updatedAt?: boolean
     title?: boolean
     percentageCompleted?: boolean
+    scopeOfWork?: boolean
     startDate?: boolean
     endDate?: boolean
     technicianId?: boolean
@@ -2868,7 +2879,7 @@ export namespace Prisma {
     tenderNo?: boolean
   }
 
-  export type JobOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "status" | "createdAt" | "updatedAt" | "title" | "percentageCompleted" | "startDate" | "endDate" | "technicianId" | "supervisorId" | "creatorId" | "notes" | "contract" | "description" | "firm" | "tenderNo", ExtArgs["result"]["job"]>
+  export type JobOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "status" | "createdAt" | "updatedAt" | "title" | "percentageCompleted" | "scopeOfWork" | "startDate" | "endDate" | "technicianId" | "supervisorId" | "creatorId" | "notes" | "contract" | "description" | "firm" | "tenderNo", ExtArgs["result"]["job"]>
   export type JobInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     creator?: boolean | Job$creatorArgs<ExtArgs>
     supervisor?: boolean | Job$supervisorArgs<ExtArgs>
@@ -2904,6 +2915,7 @@ export namespace Prisma {
       updatedAt: Date
       title: string | null
       percentageCompleted: number
+      scopeOfWork: string | null
       startDate: Date | null
       endDate: Date | null
       technicianId: string | null
@@ -3348,6 +3360,7 @@ export namespace Prisma {
     readonly updatedAt: FieldRef<"Job", 'DateTime'>
     readonly title: FieldRef<"Job", 'String'>
     readonly percentageCompleted: FieldRef<"Job", 'Float'>
+    readonly scopeOfWork: FieldRef<"Job", 'String'>
     readonly startDate: FieldRef<"Job", 'DateTime'>
     readonly endDate: FieldRef<"Job", 'DateTime'>
     readonly technicianId: FieldRef<"Job", 'String'>
@@ -6083,6 +6096,7 @@ export namespace Prisma {
     updatedAt: 'updatedAt',
     title: 'title',
     percentageCompleted: 'percentageCompleted',
+    scopeOfWork: 'scopeOfWork',
     startDate: 'startDate',
     endDate: 'endDate',
     technicianId: 'technicianId',
@@ -6366,6 +6380,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Job"> | Date | string
     title?: StringNullableFilter<"Job"> | string | null
     percentageCompleted?: FloatFilter<"Job"> | number
+    scopeOfWork?: StringNullableFilter<"Job"> | string | null
     startDate?: DateTimeNullableFilter<"Job"> | Date | string | null
     endDate?: DateTimeNullableFilter<"Job"> | Date | string | null
     technicianId?: StringNullableFilter<"Job"> | string | null
@@ -6390,6 +6405,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     title?: SortOrderInput | SortOrder
     percentageCompleted?: SortOrder
+    scopeOfWork?: SortOrderInput | SortOrder
     startDate?: SortOrderInput | SortOrder
     endDate?: SortOrderInput | SortOrder
     technicianId?: SortOrderInput | SortOrder
@@ -6418,6 +6434,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Job"> | Date | string
     title?: StringNullableFilter<"Job"> | string | null
     percentageCompleted?: FloatFilter<"Job"> | number
+    scopeOfWork?: StringNullableFilter<"Job"> | string | null
     startDate?: DateTimeNullableFilter<"Job"> | Date | string | null
     endDate?: DateTimeNullableFilter<"Job"> | Date | string | null
     technicianId?: StringNullableFilter<"Job"> | string | null
@@ -6441,6 +6458,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     title?: SortOrderInput | SortOrder
     percentageCompleted?: SortOrder
+    scopeOfWork?: SortOrderInput | SortOrder
     startDate?: SortOrderInput | SortOrder
     endDate?: SortOrderInput | SortOrder
     technicianId?: SortOrderInput | SortOrder
@@ -6468,6 +6486,7 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Job"> | Date | string
     title?: StringNullableWithAggregatesFilter<"Job"> | string | null
     percentageCompleted?: FloatWithAggregatesFilter<"Job"> | number
+    scopeOfWork?: StringNullableWithAggregatesFilter<"Job"> | string | null
     startDate?: DateTimeNullableWithAggregatesFilter<"Job"> | Date | string | null
     endDate?: DateTimeNullableWithAggregatesFilter<"Job"> | Date | string | null
     technicianId?: StringNullableWithAggregatesFilter<"Job"> | string | null
@@ -6715,6 +6734,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     title?: string | null
     percentageCompleted?: number
+    scopeOfWork?: string | null
     startDate?: Date | string | null
     endDate?: Date | string | null
     notes?: string | null
@@ -6736,6 +6756,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     title?: string | null
     percentageCompleted?: number
+    scopeOfWork?: string | null
     startDate?: Date | string | null
     endDate?: Date | string | null
     technicianId?: string | null
@@ -6757,6 +6778,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     percentageCompleted?: FloatFieldUpdateOperationsInput | number
+    scopeOfWork?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6778,6 +6800,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     percentageCompleted?: FloatFieldUpdateOperationsInput | number
+    scopeOfWork?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     technicianId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6799,6 +6822,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     title?: string | null
     percentageCompleted?: number
+    scopeOfWork?: string | null
     startDate?: Date | string | null
     endDate?: Date | string | null
     technicianId?: string | null
@@ -6818,6 +6842,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     percentageCompleted?: FloatFieldUpdateOperationsInput | number
+    scopeOfWork?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6834,6 +6859,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     percentageCompleted?: FloatFieldUpdateOperationsInput | number
+    scopeOfWork?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     technicianId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7198,6 +7224,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     title?: SortOrder
     percentageCompleted?: SortOrder
+    scopeOfWork?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     technicianId?: SortOrder
@@ -7222,6 +7249,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     title?: SortOrder
     percentageCompleted?: SortOrder
+    scopeOfWork?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     technicianId?: SortOrder
@@ -7241,6 +7269,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     title?: SortOrder
     percentageCompleted?: SortOrder
+    scopeOfWork?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     technicianId?: SortOrder
@@ -8121,6 +8150,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     title?: string | null
     percentageCompleted?: number
+    scopeOfWork?: string | null
     startDate?: Date | string | null
     endDate?: Date | string | null
     notes?: string | null
@@ -8141,6 +8171,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     title?: string | null
     percentageCompleted?: number
+    scopeOfWork?: string | null
     startDate?: Date | string | null
     endDate?: Date | string | null
     technicianId?: string | null
@@ -8171,6 +8202,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     title?: string | null
     percentageCompleted?: number
+    scopeOfWork?: string | null
     startDate?: Date | string | null
     endDate?: Date | string | null
     notes?: string | null
@@ -8191,6 +8223,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     title?: string | null
     percentageCompleted?: number
+    scopeOfWork?: string | null
     startDate?: Date | string | null
     endDate?: Date | string | null
     technicianId?: string | null
@@ -8221,6 +8254,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     title?: string | null
     percentageCompleted?: number
+    scopeOfWork?: string | null
     startDate?: Date | string | null
     endDate?: Date | string | null
     notes?: string | null
@@ -8241,6 +8275,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     title?: string | null
     percentageCompleted?: number
+    scopeOfWork?: string | null
     startDate?: Date | string | null
     endDate?: Date | string | null
     supervisorId?: string | null
@@ -8344,6 +8379,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Job"> | Date | string
     title?: StringNullableFilter<"Job"> | string | null
     percentageCompleted?: FloatFilter<"Job"> | number
+    scopeOfWork?: StringNullableFilter<"Job"> | string | null
     startDate?: DateTimeNullableFilter<"Job"> | Date | string | null
     endDate?: DateTimeNullableFilter<"Job"> | Date | string | null
     technicianId?: StringNullableFilter<"Job"> | string | null
@@ -8766,6 +8802,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     title?: string | null
     percentageCompleted?: number
+    scopeOfWork?: string | null
     startDate?: Date | string | null
     endDate?: Date | string | null
     notes?: string | null
@@ -8786,6 +8823,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     title?: string | null
     percentageCompleted?: number
+    scopeOfWork?: string | null
     startDate?: Date | string | null
     endDate?: Date | string | null
     technicianId?: string | null
@@ -8857,6 +8895,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     percentageCompleted?: FloatFieldUpdateOperationsInput | number
+    scopeOfWork?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8877,6 +8916,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     percentageCompleted?: FloatFieldUpdateOperationsInput | number
+    scopeOfWork?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     technicianId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8938,6 +8978,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     title?: string | null
     percentageCompleted?: number
+    scopeOfWork?: string | null
     startDate?: Date | string | null
     endDate?: Date | string | null
     notes?: string | null
@@ -8958,6 +8999,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     title?: string | null
     percentageCompleted?: number
+    scopeOfWork?: string | null
     startDate?: Date | string | null
     endDate?: Date | string | null
     technicianId?: string | null
@@ -9029,6 +9071,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     percentageCompleted?: FloatFieldUpdateOperationsInput | number
+    scopeOfWork?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9049,6 +9092,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     percentageCompleted?: FloatFieldUpdateOperationsInput | number
+    scopeOfWork?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     technicianId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9110,6 +9154,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     title?: string | null
     percentageCompleted?: number
+    scopeOfWork?: string | null
     startDate?: Date | string | null
     endDate?: Date | string | null
     technicianId?: string | null
@@ -9128,6 +9173,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     title?: string | null
     percentageCompleted?: number
+    scopeOfWork?: string | null
     startDate?: Date | string | null
     endDate?: Date | string | null
     technicianId?: string | null
@@ -9146,6 +9192,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     title?: string | null
     percentageCompleted?: number
+    scopeOfWork?: string | null
     startDate?: Date | string | null
     endDate?: Date | string | null
     supervisorId?: string | null
@@ -9181,6 +9228,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     percentageCompleted?: FloatFieldUpdateOperationsInput | number
+    scopeOfWork?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9201,6 +9249,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     percentageCompleted?: FloatFieldUpdateOperationsInput | number
+    scopeOfWork?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     technicianId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9221,6 +9270,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     percentageCompleted?: FloatFieldUpdateOperationsInput | number
+    scopeOfWork?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     technicianId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9239,6 +9289,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     percentageCompleted?: FloatFieldUpdateOperationsInput | number
+    scopeOfWork?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9259,6 +9310,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     percentageCompleted?: FloatFieldUpdateOperationsInput | number
+    scopeOfWork?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     technicianId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9279,6 +9331,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     percentageCompleted?: FloatFieldUpdateOperationsInput | number
+    scopeOfWork?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     technicianId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9297,6 +9350,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     percentageCompleted?: FloatFieldUpdateOperationsInput | number
+    scopeOfWork?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9317,6 +9371,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     percentageCompleted?: FloatFieldUpdateOperationsInput | number
+    scopeOfWork?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     supervisorId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9337,6 +9392,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     percentageCompleted?: FloatFieldUpdateOperationsInput | number
+    scopeOfWork?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     supervisorId?: NullableStringFieldUpdateOperationsInput | string | null

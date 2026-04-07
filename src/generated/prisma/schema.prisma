@@ -32,6 +32,7 @@ model Job {
   updatedAt           DateTime  @updatedAt
   title               String?
   percentageCompleted Float     @default(0)
+  scopeOfWork         String?
   startDate           DateTime?
   endDate             DateTime?
   technicianId        String?

@@ -139,6 +139,7 @@ exports.Prisma.JobScalarFieldEnum = {
   updatedAt: 'updatedAt',
   title: 'title',
   percentageCompleted: 'percentageCompleted',
+  scopeOfWork: 'scopeOfWork',
   startDate: 'startDate',
   endDate: 'endDate',
   technicianId: 'technicianId',

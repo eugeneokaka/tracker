@@ -34,6 +34,7 @@ export default function CreateJobForm({
       contract: parseFloat(formData.get('contract') as string) || 0,
       startDate: formData.get('startDate') || null,
       endDate: formData.get('endDate') || null,
+      scopeOfWork: formData.get('scopeOfWork') || null,
       description: formData.get('description'),
       notes: formData.get('notes'),
       technicianId: formData.get('technicianId') || null,
@@ -165,6 +166,19 @@ export default function CreateJobForm({
             className="w-full px-3 py-2 border border-zinc-300 rounded-md bg-white text-zinc-900 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent transition-shadow"
           />
         </div>
+      </div>
+
+      <div className="space-y-2">
+        <label htmlFor="scopeOfWork" className="block text-sm font-medium text-zinc-700">
+          Scope of Work <span className="text-zinc-400 font-normal">(Optional)</span>
+        </label>
+        <textarea
+          id="scopeOfWork"
+          name="scopeOfWork"
+          rows={3}
+          className="w-full px-3 py-2 border border-zinc-300 rounded-md bg-white text-zinc-900 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent transition-shadow resize-y"
+          placeholder="Define the specific scope of work..."
+        />
       </div>
 
       <div className="space-y-2">

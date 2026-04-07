@@ -11,6 +11,7 @@ type Job = {
   tenderNo: string;
   title?: string | null;
   percentageCompleted: number;
+  scopeOfWork?: string | null;
   firm: string;
   contract: number;
   startDate?: string | Date | null;
@@ -264,11 +265,12 @@ export default function JobList({
 
       {/* TABLE */}
       <div className="bg-white border text-sm border-gray-200 rounded-2xl shadow-sm overflow-x-auto ring-1 ring-black/[0.02] pb-4">
-        <table className="w-full min-w-[1200px] text-left border-collapse">
+        <table className="w-full min-w-[1350px] text-left border-collapse">
           <thead>
             <tr className="bg-gray-50/80 border-b border-gray-200">
               <th className="px-8 py-5 font-semibold text-gray-600 text-xs uppercase tracking-wider whitespace-nowrap">Job Reference</th>
               <th className="px-8 py-5 font-semibold text-gray-600 text-xs uppercase tracking-wider whitespace-nowrap">Title/Firm</th>
+              <th className="px-8 py-5 font-semibold text-gray-600 text-xs uppercase tracking-wider whitespace-nowrap">Scope</th>
               <th className="px-8 py-5 font-semibold text-gray-600 text-xs uppercase tracking-wider whitespace-nowrap">Creator</th>
               <th className="px-8 py-5 font-semibold text-gray-600 text-xs uppercase tracking-wider whitespace-nowrap">Progress</th>
               <th className="px-8 py-5 font-semibold text-gray-600 text-xs uppercase tracking-wider whitespace-nowrap">Dates</th>
@@ -279,7 +281,7 @@ export default function JobList({
           <tbody className="divide-y divide-gray-100/80">
             {filteredJobs.length === 0 ? (
               <tr>
-                <td colSpan={7} className="text-center py-16">
+                <td colSpan={8} className="text-center py-16">
                   <div className="flex flex-col items-center justify-center text-gray-400">
                     <svg className="w-12 h-12 mb-3 text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -316,16 +318,28 @@ export default function JobList({
                   </td>
 
                   {/* FIRM DETAILS & DESCRIPTION */}
-                  <td className="px-8 py-6 align-top max-w-md pr-12">
+                  <td className="px-8 py-6 align-top max-w-sm">
                     {job.title && (
                       <div className="font-semibold text-gray-900 mb-0.5">{job.title}</div>
                     )}
-                    <div className={job.title ? "text-sm font-medium text-gray-600 mb-1" : "font-semibold text-gray-900 mb-1"}>{job.firm}</div>
+                    <div className={job.title ? "text-sm font-medium text-gray-600 mb-2" : "font-semibold text-gray-900 mb-2"}>{job.firm}</div>
+
                     <div className="text-sm text-gray-500 line-clamp-2 leading-relaxed">{job.description}</div>
                     {job.notes && (
                       <div className="text-[11px] font-medium text-amber-700 bg-amber-50 px-2 py-1 rounded inline-block mt-2 italic border border-amber-200/60">
                         {job.notes.length > 50 ? job.notes.substring(0, 50) + '...' : job.notes}
                       </div>
+                    )}
+                  </td>
+
+                  {/* SCOPE */}
+                  <td className="px-8 py-6 align-top max-w-[200px]">
+                    {job.scopeOfWork ? (
+                      <div className="text-xs text-indigo-700 bg-indigo-50/70 border border-indigo-100/80 rounded-lg px-3 py-2 line-clamp-3 leading-relaxed">
+                        {job.scopeOfWork}
+                      </div>
+                    ) : (
+                      <span className="text-gray-400 italic text-sm font-medium leading-relaxed block mt-0.5">Not specified</span>
                     )}
                   </td>
 

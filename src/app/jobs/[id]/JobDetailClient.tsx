@@ -18,6 +18,7 @@ type Job = {
   tenderNo: string;
   title?: string | null;
   percentageCompleted: number;
+  scopeOfWork?: string | null;
   firm: string;
   contract: number;
   startDate: string | Date | null;
@@ -208,6 +209,7 @@ export default function JobDetailClient({
             {job.startDate && renderSection("Start Date", new Date(job.startDate).toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' }))}
             {job.endDate && renderSection("End Date", new Date(job.endDate).toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' }))}
             {renderSection("Contract Value", job.contract > 0 ? `KSH ${job.contract.toLocaleString()}` : job.contract)}
+            {job.scopeOfWork && renderSection("Scope of Work", job.scopeOfWork)}
             {renderSection("Description", job.description)}
             {renderSection("Internal Notes", job.notes)}
           </div>
