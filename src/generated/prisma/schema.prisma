@@ -22,29 +22,57 @@ model User {
   supervisedJobs      Job[]         @relation("Supervisor")
   assignedJobs        Job[]         @relation("AssignedTechnician")
   logs                ProgressLog[]
+  tasksCreated        Task[]        @relation("TaskCreator")
 }
 
 model Job {
-  id           String        @id @default(cuid())
-  status       JobStatus     @default(PENDING)
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  technicianId String?
-  supervisorId String?
-  creatorId    String?
-  notes        String?
-  contract     Decimal       @db.Decimal(15, 2)
-  description  String
-  firm         String
-  tenderNo     String        @unique
-  creator      User?         @relation("JobCreator", fields: [creatorId], references: [id])
-  supervisor   User?         @relation("Supervisor", fields: [supervisorId], references: [id])
-  technician   User?         @relation("AssignedTechnician", fields: [technicianId], references: [id])
-  logs         ProgressLog[]
+  id                  String    @id @default(cuid())
+  status              JobStatus @default(PENDING)
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  title               String?
+  percentageCompleted Float     @default(0)
+  startDate           DateTime?
+  endDate             DateTime?
+  technicianId        String?
+  supervisorId        String?
+  creatorId           String?
+  notes               String?
+  contract            Decimal   @db.Decimal(15, 2)
+  description         String
+  firm                String
+  tenderNo            String    @unique
+
+  creator    User?         @relation("JobCreator", fields: [creatorId], references: [id])
+  supervisor User?         @relation("Supervisor", fields: [supervisorId], references: [id])
+  technician User?         @relation("AssignedTechnician", fields: [technicianId], references: [id])
+  logs       ProgressLog[]
+  tasks      Task[] // 👈 add this
 
   @@index([status])
   @@index([technicianId])
   @@index([supervisorId])
+}
+
+enum TaskStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+}
+
+model Task {
+  id          String     @id @default(cuid())
+  title       String
+  description String?
+  status      TaskStatus @default(PENDING)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  jobId     String
+  creatorId String
+
+  job     Job  @relation(fields: [jobId], references: [id])
+  creator User @relation("TaskCreator", fields: [creatorId], references: [id])
 }
 
 model ProgressLog {

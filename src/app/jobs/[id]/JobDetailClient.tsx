@@ -5,11 +5,23 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 type UserInfo = { id?: string, firstName: string, lastName: string };
+type Task = {
+  id: string;
+  title: string;
+  description: string | null;
+  status: 'PENDING' | 'IN_PROGRESS' | 'COMPLETED';
+  createdAt: string | Date;
+  creator: UserInfo;
+};
 type Job = {
   id: string;
   tenderNo: string;
+  title?: string | null;
+  percentageCompleted: number;
   firm: string;
   contract: number;
+  startDate: string | Date | null;
+  endDate: string | Date | null;
   description: string;
   notes: string | null;
   status: string;
@@ -20,6 +32,7 @@ type Job = {
   technician?: UserInfo | null;
   supervisorId?: string | null;
   supervisor?: UserInfo | null;
+  tasks: Task[];
 };
 
 type SelectUser = { id: string, firstName: string, lastName: string };
@@ -36,8 +49,64 @@ export default function JobDetailClient({
   supervisors: SelectUser[]
 }) {
   const router = useRouter();
-  const [job, setJob] = useState<Job>(initialJob);
+  const [job, setJob] = useState<Job>({ ...initialJob, tasks: initialJob.tasks || [] });
   const [updating, setUpdating] = useState<string | null>(null);
+
+  const completedTasks = job.tasks?.filter(t => t.status === 'COMPLETED').length || 0;
+  const totalTasks = job.tasks?.length || 0;
+  const progressPercent = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+
+  const [addingTask, setAddingTask] = useState(false);
+  const [taskTitle, setTaskTitle] = useState('');
+  const [taskDesc, setTaskDesc] = useState('');
+  const [taskSubmitting, setTaskSubmitting] = useState(false);
+
+  const handleCreateTask = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!taskTitle.trim()) return;
+    
+    setTaskSubmitting(true);
+    try {
+      const res = await fetch(`/api/jobs/${job.id}/tasks`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: taskTitle, description: taskDesc }),
+      });
+      if (!res.ok) throw new Error('Failed to create task');
+      
+      const createdTask = await res.json();
+      setJob(prev => ({
+        ...prev,
+        tasks: [createdTask, ...prev.tasks]
+      }));
+      setTaskTitle('');
+      setTaskDesc('');
+      setAddingTask(false);
+    } catch (err) {
+      console.error(err);
+      alert('Failed to create task');
+    } finally {
+      setTaskSubmitting(false);
+    }
+  };
+
+  const updateTaskStatus = async (taskId: string, newStatus: string) => {
+    try {
+      setJob(prev => ({
+        ...prev,
+        tasks: prev.tasks.map(t => t.id === taskId ? { ...t, status: newStatus as any } : t)
+      }));
+      const res = await fetch(`/api/tasks/${taskId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: newStatus }),
+      });
+      if (!res.ok) throw new Error('Failed to update task');
+    } catch (err) {
+      console.error(err);
+      alert('Failed to update task');
+    }
+  };
 
   const updateField = async (payload: any, label: string) => {
     setUpdating(label);
@@ -91,7 +160,7 @@ export default function JobDetailClient({
           className="bg-blue-600 text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 6-6 6-6v6m0 6-6 6-6v6" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
           </svg>
           Download Job
         </button>
@@ -134,10 +203,129 @@ export default function JobDetailClient({
           </div>
           
           <div className="flex flex-col">
+            {job.title && renderSection("Project Title", job.title)}
             {renderSection("Firm Name", job.firm)}
+            {job.startDate && renderSection("Start Date", new Date(job.startDate).toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' }))}
+            {job.endDate && renderSection("End Date", new Date(job.endDate).toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' }))}
             {renderSection("Contract Value", job.contract > 0 ? `KSH ${job.contract.toLocaleString()}` : job.contract)}
             {renderSection("Description", job.description)}
             {renderSection("Internal Notes", job.notes)}
+          </div>
+
+          {/* Tasks Section */}
+          <div className="border-t border-zinc-200">
+            <div className="px-6 py-4 border-b border-zinc-100 bg-zinc-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex items-center gap-6 flex-1">
+                <h2 className="text-sm font-semibold text-zinc-900 whitespace-nowrap">Task List</h2>
+                {totalTasks > 0 && (
+                  <div className="flex-col gap-1.5 w-full max-w-[200px] hidden sm:flex">
+                    <div className="flex justify-between text-[10px] uppercase font-bold tracking-wider text-zinc-500">
+                      <span>Progress</span>
+                      <span className={progressPercent === 100 ? "text-green-600" : "text-emerald-600"}>{progressPercent}%</span>
+                    </div>
+                    <div className="w-full bg-zinc-200/80 rounded-full h-1.5 overflow-hidden">
+                      <div 
+                        className={`h-1.5 rounded-full transition-all duration-500 shadow-sm ${progressPercent === 100 ? 'bg-green-500' : 'bg-emerald-500'}`} 
+                        style={{ width: `${progressPercent}%` }}
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+              {canEdit && (
+                <button 
+                  onClick={() => setAddingTask(!addingTask)}
+                  className="text-xs bg-zinc-900 text-white px-3 py-1.5 rounded-md hover:bg-zinc-800 transition-colors shadow-sm whitespace-nowrap shrink-0"
+                >
+                  {addingTask ? 'Cancel' : '+ Add Task'}
+                </button>
+              )}
+            </div>
+            
+            {addingTask && (
+              <form onSubmit={handleCreateTask} className="p-6 border-b border-zinc-100 bg-zinc-50 border border-t-0 space-y-3">
+                <div>
+                  <label htmlFor="taskTitle" className="block text-xs font-semibold text-zinc-700 mb-1 tracking-wide uppercase">Title</label>
+                  <input
+                    id="taskTitle"
+                    type="text"
+                    value={taskTitle}
+                    onChange={(e) => setTaskTitle(e.target.value)}
+                    required
+                    placeholder="E.g., Site survey and assessment"
+                    className="w-full px-3 py-2 border border-zinc-200 rounded-md bg-white text-zinc-900 text-sm focus:outline-none focus:ring-1 focus:ring-zinc-900"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="taskDesc" className="block text-xs font-semibold text-zinc-700 mb-1 tracking-wide uppercase">Description (Optional)</label>
+                  <textarea
+                    id="taskDesc"
+                    value={taskDesc}
+                    onChange={(e) => setTaskDesc(e.target.value)}
+                    rows={2}
+                    placeholder="Provide detailed instructions..."
+                    className="w-full px-3 py-2 border border-zinc-200 rounded-md bg-white text-zinc-900 text-sm focus:outline-none focus:ring-1 focus:ring-zinc-900 resize-y"
+                  />
+                </div>
+                <div className="flex justify-end pt-2">
+                  <button
+                    type="submit"
+                    disabled={taskSubmitting || !taskTitle.trim()}
+                    className="bg-zinc-900 text-white text-xs px-4 py-2 rounded-md hover:bg-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                  >
+                    {taskSubmitting ? 'Creating...' : 'Create Task'}
+                  </button>
+                </div>
+              </form>
+            )}
+
+            <div className="flex flex-col">
+              {job.tasks?.length === 0 ? (
+                <div className="px-6 py-8 text-center text-zinc-500 text-sm italic">
+                  No tasks created for this job yet.
+                </div>
+              ) : (
+                <ul className="divide-y divide-zinc-100">
+                  {job.tasks?.map((task) => (
+                    <li key={task.id} className="p-6 hover:bg-zinc-50/50 transition-colors flex gap-4">
+                      <div className="pt-1 select-none">
+                        <select
+                          value={task.status}
+                          disabled={!canEdit}
+                          onChange={(e) => updateTaskStatus(task.id, e.target.value)}
+                          className={`text-[10px] font-bold px-2 py-1 rounded-md uppercase tracking-wider outline-none shadow-sm appearance-none border transition-colors disabled:opacity-50 ${canEdit ? 'cursor-pointer' : 'cursor-not-allowed'} ${
+                            task.status === 'COMPLETED' ? 'bg-green-50 text-green-700 border-green-200' :
+                            task.status === 'IN_PROGRESS' ? 'bg-blue-50 text-blue-700 border-blue-200' :
+                            'bg-zinc-100 text-zinc-600 border-zinc-200'
+                          }`}
+                        >
+                          <option value="PENDING">Pending</option>
+                          <option value="IN_PROGRESS">In Progress</option>
+                          <option value="COMPLETED">Completed</option>
+                        </select>
+                      </div>
+                      <div className="flex-1">
+                        <h4 className={`text-sm font-semibold transition-colors ${task.status === 'COMPLETED' ? 'text-zinc-400 line-through' : 'text-zinc-900'}`}>
+                          {task.title}
+                        </h4>
+                        {task.description && (
+                          <p className={`text-sm mt-1 mb-2 ${task.status === 'COMPLETED' ? 'text-zinc-400 line-through opacity-70' : 'text-zinc-600'}`}>
+                            {task.description}
+                          </p>
+                        )}
+                        <div className="flex items-center gap-2 text-xs text-zinc-400 mt-2">
+                          <span className="font-medium text-zinc-500">
+                            {task.creator?.firstName} {task.creator?.lastName}
+                          </span>
+                          <span>•</span>
+                          <span>{new Date(task.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}</span>
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </div>
         </div>
 

@@ -29,8 +29,11 @@ export default function CreateJobForm({
     const formData = new FormData(e.currentTarget);
     const data = {
       tenderNo: formData.get('tenderNo'),
+      title: formData.get('title') || null,
       firm: formData.get('firm'),
       contract: parseFloat(formData.get('contract') as string) || 0,
+      startDate: formData.get('startDate') || null,
+      endDate: formData.get('endDate') || null,
       description: formData.get('description'),
       notes: formData.get('notes'),
       technicianId: formData.get('technicianId') || null,
@@ -54,6 +57,11 @@ export default function CreateJobForm({
             duration: 2000,
           });
           router.push('/onboarding');
+          return;
+        }
+        if (res.status === 409) {
+          const errorMsg = await res.text();
+          toast.error(errorMsg);
           return;
         }
         throw new Error('Failed to create job');
@@ -91,6 +99,19 @@ export default function CreateJobForm({
         </div>
 
         <div className="space-y-2">
+          <label htmlFor="title" className="block text-sm font-medium text-zinc-700">
+            Project Title <span className="text-zinc-400 font-normal">(Optional)</span>
+          </label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            className="w-full px-3 py-2 border border-zinc-300 rounded-md bg-white text-zinc-900 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent transition-shadow"
+            placeholder="e.g. Server Room Installation"
+          />
+        </div>
+
+        <div className="space-y-2">
           <label htmlFor="firm" className="block text-sm font-medium text-zinc-700">
             Firm
           </label>
@@ -105,19 +126,45 @@ export default function CreateJobForm({
         </div>
       </div>
 
-      <div className="space-y-2">
-        <label htmlFor="contract" className="block text-sm font-medium text-zinc-700">
-          Contract Value
-        </label>
-        <input
-          type="number"
-          step="0.01"
-          id="contract"
-          name="contract"
-          required
-          className="w-full px-3 py-2 border border-zinc-300 rounded-md bg-white text-zinc-900 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent transition-shadow"
-          placeholder="e.g. 50000"
-        />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="space-y-2">
+          <label htmlFor="contract" className="block text-sm font-medium text-zinc-700">
+            Contract Value
+          </label>
+          <input
+            type="number"
+            step="0.01"
+            id="contract"
+            name="contract"
+            required
+            className="w-full px-3 py-2 border border-zinc-300 rounded-md bg-white text-zinc-900 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent transition-shadow"
+            placeholder="e.g. 50000"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <label htmlFor="startDate" className="block text-sm font-medium text-zinc-700">
+            Start Date <span className="text-zinc-400 font-normal">(Optional)</span>
+          </label>
+          <input
+            type="date"
+            id="startDate"
+            name="startDate"
+            className="w-full px-3 py-2 border border-zinc-300 rounded-md bg-white text-zinc-900 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent transition-shadow"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <label htmlFor="endDate" className="block text-sm font-medium text-zinc-700">
+            End Date <span className="text-zinc-400 font-normal">(Optional)</span>
+          </label>
+          <input
+            type="date"
+            id="endDate"
+            name="endDate"
+            className="w-full px-3 py-2 border border-zinc-300 rounded-md bg-white text-zinc-900 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent transition-shadow"
+          />
+        </div>
       </div>
 
       <div className="space-y-2">

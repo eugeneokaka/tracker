@@ -88,13 +88,16 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json();
-    const { tenderNo, firm, contract, description, notes, technicianId, supervisorId } = body;
+    const { tenderNo, title, firm, contract, startDate, endDate, description, notes, technicianId, supervisorId } = body;
 
     const job = await prisma.job.create({
       data: {
         tenderNo,
+        title,
         firm,
         contract,
+        startDate: startDate ? new Date(startDate) : null,
+        endDate: endDate ? new Date(endDate) : null,
         description,
         notes,
         status: 'PENDING',
@@ -105,8 +108,11 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json(job);
-  } catch (error) {
+  } catch (error: any) {
     console.error('[JOBS_POST]', error);
+    if (error?.code === 'P2002') {
+      return new NextResponse('tenderno must be unique. this tenderno already exists', { status: 409 });
+    }
     return new NextResponse('Internal Error', { status: 500 });
   }
 }

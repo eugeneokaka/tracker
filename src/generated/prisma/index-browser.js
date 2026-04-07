@@ -137,6 +137,10 @@ exports.Prisma.JobScalarFieldEnum = {
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  title: 'title',
+  percentageCompleted: 'percentageCompleted',
+  startDate: 'startDate',
+  endDate: 'endDate',
   technicianId: 'technicianId',
   supervisorId: 'supervisorId',
   creatorId: 'creatorId',
@@ -145,6 +149,17 @@ exports.Prisma.JobScalarFieldEnum = {
   description: 'description',
   firm: 'firm',
   tenderNo: 'tenderNo'
+};
+
+exports.Prisma.TaskScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  jobId: 'jobId',
+  creatorId: 'creatorId'
 };
 
 exports.Prisma.ProgressLogScalarFieldEnum = {
@@ -183,9 +198,16 @@ exports.JobStatus = exports.$Enums.JobStatus = {
   COMPLETED: 'COMPLETED'
 };
 
+exports.TaskStatus = exports.$Enums.TaskStatus = {
+  PENDING: 'PENDING',
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Job: 'Job',
+  Task: 'Task',
   ProgressLog: 'ProgressLog'
 };
 

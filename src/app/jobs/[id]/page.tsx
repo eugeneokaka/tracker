@@ -23,6 +23,10 @@ export default async function JobDetailPage(props: { params: Promise<{ id: strin
       creator: true,
       technician: true,
       supervisor: true,
+      tasks: {
+        include: { creator: true },
+        orderBy: { createdAt: 'desc' }
+      }
     }
   });
 
@@ -46,7 +50,11 @@ export default async function JobDetailPage(props: { params: Promise<{ id: strin
     orderBy: { firstName: 'asc' }
   });
 
-  const canEdit = job.creatorId === currentUser?.id || currentUser?.role === 'ADMIN';
+  const canEdit = 
+    job.creatorId === currentUser?.id || 
+    currentUser?.role === 'ADMIN' ||
+    job.technicianId === currentUser?.id ||
+    job.supervisorId === currentUser?.id;
 
   const serializedJob = {
     ...job,
