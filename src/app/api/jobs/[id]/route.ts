@@ -87,3 +87,46 @@ export async function PATCH(
     return new NextResponse('Internal Error', { status: 500 });
   }
 }
+
+export async function DELETE(
+  request: Request,
+  props: { params: Promise<{ id: string }> }
+) {
+  try {
+    const params = await props.params;
+    
+    const { userId } = await auth();
+    if (!userId) {
+      return new NextResponse('Unauthorized', { status: 401 });
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { clerkId: userId },
+      select: { role: true },
+    });
+
+    if (!user || user.role !== 'ADMIN') {
+      return new NextResponse('Forbidden', { status: 403 });
+    }
+
+    const currentJob = await prisma.job.findUnique({
+      where: { id: params.id },
+    });
+
+    if (!currentJob) {
+      return new NextResponse('Job not found', { status: 404 });
+    }
+
+    // Safely delete jobs with relations leveraging transactions
+    await prisma.$transaction([
+      prisma.task.deleteMany({ where: { jobId: params.id } }),
+      prisma.progressLog.deleteMany({ where: { jobId: params.id } }),
+      prisma.job.delete({ where: { id: params.id } }),
+    ]);
+
+    return new NextResponse('Deleted', { status: 200 });
+  } catch (error) {
+    console.error('[JOB_DELETE]', error);
+    return new NextResponse('Internal Error', { status: 500 });
+  }
+}

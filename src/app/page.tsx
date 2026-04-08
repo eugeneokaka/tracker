@@ -30,6 +30,7 @@ export default async function Home() {
         currentUserId={currentUser?.id || ""}
         technicians={technicians}
         supervisors={supervisors}
+        isAdmin={currentUser?.role === 'ADMIN'}
       />
     </div>
   );
