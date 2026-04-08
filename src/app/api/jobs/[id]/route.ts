@@ -59,6 +59,16 @@ export async function PATCH(
     if (body.status !== undefined) updateData.status = body.status;
     if (body.technicianId !== undefined) updateData.technicianId = body.technicianId === '' ? null : body.technicianId;
     if (body.supervisorId !== undefined) updateData.supervisorId = body.supervisorId === '' ? null : body.supervisorId;
+    
+    if (body.tenderNo !== undefined) updateData.tenderNo = body.tenderNo;
+    if (body.title !== undefined) updateData.title = body.title;
+    if (body.firm !== undefined) updateData.firm = body.firm;
+    if (body.contract !== undefined) updateData.contract = body.contract;
+    if (body.startDate !== undefined) updateData.startDate = body.startDate ? new Date(body.startDate) : null;
+    if (body.endDate !== undefined) updateData.endDate = body.endDate ? new Date(body.endDate) : null;
+    if (body.scopeOfWork !== undefined) updateData.scopeOfWork = body.scopeOfWork;
+    if (body.description !== undefined) updateData.description = body.description;
+    if (body.notes !== undefined) updateData.notes = body.notes;
 
     if (Object.keys(updateData).length === 0) {
       return new NextResponse('Nothing to update', { status: 400 });

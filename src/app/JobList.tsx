@@ -45,7 +45,7 @@ export default function JobList({
 
   const [jobs, setJobs] = useState<Job[]>([]);
   const [filter, setFilter] = useState<string>("ALL");
-  const [copiedId, setCopiedId] = useState<string | null>(null);
+
 
   const [jobIdSearch, setJobIdSearch] = useState("");
   const [tenderSearch, setTenderSearch] = useState("");
@@ -144,47 +144,7 @@ export default function JobList({
     }
   };
 
-  const copyTenderNo = async (tenderNo: string, jobId: string) => {
-    try {
-      await navigator.clipboard.writeText(tenderNo);
-      setCopiedId(jobId);
-      setTimeout(() => setCopiedId(null), 2000);
-    } catch (err) {
-      console.error("Failed to copy:", err);
-    }
-  };
 
-  const copyJobId = async (jobId: string) => {
-    try {
-      await navigator.clipboard.writeText(jobId);
-      setCopiedId(`job-${jobId}`);
-      setTimeout(() => setCopiedId(null), 2000);
-    } catch (err) {
-      console.error("Failed to copy:", err);
-    }
-  };
-
-  const renderUser = (user?: UserInfo | null, label?: string) => {
-    if (!user) {
-      return (
-        <div className="text-xs text-gray-400 italic">
-          Unassigned {label}
-        </div>
-      );
-    }
-
-    return (
-      <div className="flex items-center gap-2">
-        <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-700">
-          {user.firstName[0]}
-          {user.lastName[0]}
-        </div>
-        <span className="text-xs text-gray-800">
-          {user.firstName} {user.lastName}
-        </span>
-      </div>
-    );
-  };
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-10">
@@ -268,10 +228,8 @@ export default function JobList({
         <table className="w-full min-w-[1350px] text-left border-collapse">
           <thead>
             <tr className="bg-gray-50/80 border-b border-gray-200">
-              <th className="px-8 py-5 font-semibold text-gray-600 text-xs uppercase tracking-wider whitespace-nowrap">Job Reference</th>
               <th className="px-8 py-5 font-semibold text-gray-600 text-xs uppercase tracking-wider whitespace-nowrap">Title/Firm</th>
               <th className="px-8 py-5 font-semibold text-gray-600 text-xs uppercase tracking-wider whitespace-nowrap">Scope</th>
-              <th className="px-8 py-5 font-semibold text-gray-600 text-xs uppercase tracking-wider whitespace-nowrap">Creator</th>
               <th className="px-8 py-5 font-semibold text-gray-600 text-xs uppercase tracking-wider whitespace-nowrap">Progress</th>
               <th className="px-8 py-5 font-semibold text-gray-600 text-xs uppercase tracking-wider whitespace-nowrap">Dates</th>
               <th className="px-8 py-5 font-semibold text-gray-600 text-xs uppercase tracking-wider whitespace-nowrap">Contract</th>
@@ -281,7 +239,7 @@ export default function JobList({
           <tbody className="divide-y divide-gray-100/80">
             {filteredJobs.length === 0 ? (
               <tr>
-                <td colSpan={8} className="text-center py-16">
+                <td colSpan={6} className="text-center py-16">
                   <div className="flex flex-col items-center justify-center text-gray-400">
                     <svg className="w-12 h-12 mb-3 text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -293,29 +251,7 @@ export default function JobList({
             ) : (
               filteredJobs.map((job) => (
                 <tr key={job.id} className="hover:bg-gray-50/50 transition-colors group">
-                  {/* JOB REFERENCE */}
-                  <td className="px-8 py-6 align-top w-64">
-                    <div className="flex flex-col gap-1.5">
-                      <div className="flex items-center gap-2">
-                        <span className="font-mono text-[11px] font-semibold text-gray-500 bg-gray-100 px-2 py-0.5 rounded tracking-wide border border-gray-200">
-                          #{job.id.slice(-6).toUpperCase()}
-                        </span>
-                        <button onClick={() => copyJobId(job.id)} className="text-gray-400 hover:text-gray-700 transition" title="Copy ID">
-                          {copiedId === `job-${job.id}` ? <span className="text-emerald-500 text-xs font-bold">✓</span> : <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>}
-                        </button>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="font-medium text-gray-900">{job.tenderNo}</span>
-                        <button onClick={() => copyTenderNo(job.tenderNo, job.id)} className="text-gray-400 hover:text-gray-700 transition" title="Copy Tender No">
-                          {copiedId === job.id ? <span className="text-emerald-500 text-xs font-bold">✓</span> : <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>}
-                        </button>
-                      </div>
-                      <div className="text-xs text-gray-400 mt-0.5 flex items-center gap-1 font-medium">
-                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-                        {new Date(job.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
-                      </div>
-                    </div>
-                  </td>
+
 
                   {/* FIRM DETAILS & DESCRIPTION */}
                   <td className="px-8 py-6 align-top max-w-sm">
@@ -343,10 +279,7 @@ export default function JobList({
                     )}
                   </td>
 
-                  {/* CREATOR */}
-                  <td className="px-8 py-6 align-top">
-                    {renderUser(job.creator, "Creator")}
-                  </td>
+
 
                   {/* PROGRESS */}
                   <td className="px-8 py-6 align-top w-48 pr-12">
